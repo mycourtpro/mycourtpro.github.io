@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+<h1>{{ page.title }}
+  <span class="date">
+    {{ page.date | date: '%Y-%m-%d' }}
+  </span>
+  <span class="nav">
+    <a href="index.html">home</a>
+    {% if page.comments %}
+      <a href="{{ page.comments }}">comments</a>
+    {% endif %}
+  </span>
+</h1>
+
+<div class="post">
+
+  {{ content }}
+
+  <div class="cr">
+    &copy; 2011-2013 John Mettraux
+  </div>
+</div>
+
