@@ -1,0 +1,3 @@
+
+[ ] http://davidpots.com/blog/jekyll-github-pages-compass/ eventually
+
