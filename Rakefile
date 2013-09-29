@@ -24,6 +24,17 @@ desc %{
   triggers Compass compilation
 }
 task :css do
-  exec('bundle exec compass compile _scss/')
+  exec('bundle exec compass compile _compass/')
+end
+
+# hidden, used only once
+task :copy do
+  system('cp _compass/vendor/bootstrap/images/* images/')
+  system('cp _compass/vendor/font-awesome/fonts/* fonts/')
+end
+
+# hidden, not much use
+task :kss do
+  exec('find . -name .sass-cache | xargs rm -fR')
 end
 

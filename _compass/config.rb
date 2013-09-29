@@ -1,11 +1,20 @@
+
+#
+# John's note:
+# full doc at: http://compass-style.org/help/tutorials/configuration-reference/
+#
+
 # Require any additional compass plugins here.
 
 # Set this to the root of your project when deployed:
 http_path = '/'
 css_dir = '../css'
-sass_dir = './'
-images_dir = '../img'
+sass_dir = '../_scss'
+images_dir = '../images'
 javascripts_dir = '../js'
+
+add_import_path 'vendor/bootstrap/stylesheets'
+add_import_path 'vendor/font-awesome/stylesheets'
 
 # You can select your preferred output style here (can be overridden via the command line):
 # output_style = :expanded or :nested or :compact or :compressed
@@ -22,3 +31,4 @@ javascripts_dir = '../js'
 # preferred_syntax = :sass
 # and then run:
 # sass-convert -R --from scss --to sass sass scss && rm -rf sass && mv scss sass
+

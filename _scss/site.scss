@@ -3,4 +3,17 @@
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
-@import "compass/reset";
+//@import "compass/reset";
+
+@import "compass/css3";
+
+$iconSpritePath: "/images/glyphicons-halflings.png" !default;
+$iconWhiteSpritePath: "/images/glyphicons-halflings-white.png" !default;
+//
+@import "bootstrap";
+@import "bootstrap-responsive";
+
+$FontAwesomePath: "/fonts" !default;
+//
+@import "font-awesome";
+
