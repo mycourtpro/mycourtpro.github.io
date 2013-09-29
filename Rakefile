@@ -3,38 +3,61 @@ desc %{
   does rm -fR _site/
 }
 task :clean do
-  exec('rm -fR _site/')
+  sh('rm -fR _site/')
 end
 
 desc %{
   generate (continually) and serve the Jekyll site on port 4000
 }
 task :serve do
-  exec('bundle exec jekyll --server')
+  sh('bundle exec jekyll --server')
 end
 
 desc %{
   generate continually the site (no serving on 4000)
 }
 task :gen do
-  exec('bundle exec jekyll')
+  sh('bundle exec jekyll')
 end
 
 desc %{
   triggers Compass compilation
 }
 task :css do
-  exec('bundle exec compass compile _compass/')
+  sh('bundle exec compass compile _compass/')
 end
 
 # hidden, used only once
 task :copy do
-  system('cp _compass/vendor/bootstrap/images/* images/')
-  system('cp _compass/vendor/font-awesome/fonts/* fonts/')
+
+  # bootstrap js files order matters
+  # the order is given in _compass/vendor/bootstrap/javascript/bootstrap.js
+
+  sh(
+    'java -jar _tools/google-closure-compiler.jar ' +
+    '--warning_level DEFAULT ' +
+    '--js' +
+    ' _compass/vendor/bootstrap/javascripts/bootstrap-transition.js' +
+    ' _compass/vendor/bootstrap/javascripts/bootstrap-affix.js' +
+    ' _compass/vendor/bootstrap/javascripts/bootstrap-alert.js' +
+    ' _compass/vendor/bootstrap/javascripts/bootstrap-button.js' +
+    ' _compass/vendor/bootstrap/javascripts/bootstrap-carousel.js' +
+    ' _compass/vendor/bootstrap/javascripts/bootstrap-collapse.js' +
+    ' _compass/vendor/bootstrap/javascripts/bootstrap-dropdown.js' +
+    ' _compass/vendor/bootstrap/javascripts/bootstrap-modal.js' +
+    ' _compass/vendor/bootstrap/javascripts/bootstrap-scrollspy.js' +
+    ' _compass/vendor/bootstrap/javascripts/bootstrap-tab.js' +
+    ' _compass/vendor/bootstrap/javascripts/bootstrap-tooltip.js' +
+    ' _compass/vendor/bootstrap/javascripts/bootstrap-popover.js' +
+    ' _compass/vendor/bootstrap/javascripts/bootstrap-typeahead.js' +
+    ' > js/bootstrap.min.js')
+
+  sh('cp _compass/vendor/bootstrap/images/* images/')
+  sh('cp _compass/vendor/font-awesome/fonts/* fonts/')
 end
 
 # hidden, not much use
 task :kss do
-  exec('find . -name .sass-cache | xargs rm -fR')
+  sh('find . -name .sass-cache | xargs rm -fR')
 end
 
