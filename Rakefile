@@ -36,6 +36,7 @@ task :copy do
   sh(
     'java -jar _tools/google-closure-compiler.jar ' +
     '--warning_level DEFAULT ' +
+    '--language_in ECMASCRIPT5 ' +
     '--js' +
     ' _compass/vendor/bootstrap/javascripts/bootstrap-transition.js' +
     ' _compass/vendor/bootstrap/javascripts/bootstrap-affix.js' +
