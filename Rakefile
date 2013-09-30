@@ -10,17 +10,17 @@ desc %{
   generate (continually) and serve the Jekyll site on port 4000
 }
 task :serve do
-  sh('bundle exec jekyll --server')
+  sh('bundle exec jekyll serve --watch')
 end
 
 desc "shortcut for 'rake serve'"
 task :s => :serve
 
 desc %{
-  generate continually the site (no serving on 4000)
+  builds the jekyll site
 }
-task :gen do
-  sh('bundle exec jekyll')
+task :build do
+  sh('bundle exec jekyll build')
 end
 
 desc %{

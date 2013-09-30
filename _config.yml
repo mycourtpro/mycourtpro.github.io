@@ -1,4 +1,11 @@
-auto: true
+
+# github's jekyll override
+safe: true
+lsi: false
 pygments: true
+
+# here
+auto: true
 permalink: /:year-:month-:day-:title.html
 exclude: [ 'README.md', 'Rakefile', 'TODO.txt', 'Gemfile', 'Gemfile.lock' ]
+
