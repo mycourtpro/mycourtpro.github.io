@@ -33,17 +33,18 @@ The equivalent for a computer browsing the MyCourt API is:
 {% highlight javascript %}
 {
   "_links": {
-    "self": {
-      "href": "http://localhost:60364/api"
-    },
     "https://mycourt.pro/rels#my-clubs": {
-      "href": "http://localhost:60364/api/clubs"
+      "href": "https://mycourt.com/api/clubs"
     },
     "https://mycourt.pro/rels#my-reservations": {
-      "href": "http://localhost:60364/api/reservations"
+      "href": "https://mycourt.com/api/reservations"
+    },
+    "https://mycourt.pro/rels#reservations": {
+      "href": "http://localhost:60364/api/reservations/{clubId}/{day}",
+      "templated": true
     },
     "https://mycourt.pro/rels#reserve": {
-      "href": "http://localhost:60364/api/reservation",
+      "href": "https://mycourt.com/api/reservation",
       "method": "POST",
       "fields": [
         { "name": "clubId", "required": true },
@@ -61,10 +62,18 @@ The equivalent for a computer browsing the MyCourt API is:
 }
 {% endhighlight %}
 
+In fact, there isn't much content here (unless you consider "version": "1.0" as content). It's all links. Those links inform your API client about the possible transitions.
+
+This JSON document was gotten via http://mycout.com/api.
+
+Those links detail four possible actions available for the client application:
+
+* lists the clubs the current user (the one associated / logged in via the client application), has access to (member of, owner or has bookmarked the club).
+* lists the reservations the user has made
+* lists the reservations for a given club on a given day
+* reserve a slot
 
 ## HALf
 
 The MyCourt API builds on [HALf](https://github.com/jmettraux/half) which is an extension to [HAL](http://stateless.co/hal_specification.html).
-
-
 
