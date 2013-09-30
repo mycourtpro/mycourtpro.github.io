@@ -24,7 +24,7 @@ The easiest way to think about the MyCourt API is as a "website for computers" o
 
 When you look at the MyCourt website (and you're logged in):
 
-<img class="screenshot" src="/images/mycourt_home.png" />
+<img class="screenshot" src="/images/mycourt_home.png" style="width: 100%" />
 
 You see information and links.
 
@@ -64,7 +64,7 @@ The equivalent for a computer browsing the MyCourt API is:
 
 In fact, there isn't much content here (unless you consider "version": "1.0" as content). It's all links. Those links inform your API client about the possible transitions.
 
-This JSON document was gotten via http://mycout.com/api.
+This JSON document was gotten via http://mycourt.com/api.
 
 Those links detail four possible actions available for the client application:
 
@@ -76,6 +76,7 @@ Those links detail four possible actions available for the client application:
 The first three links are available via GET requests, while the last one is via POST, and it lists the expected fields (in the JSON document to post).
 
 The MyCourt API actually lists more possible actions for clients.
+
 
 ## HALf
 
