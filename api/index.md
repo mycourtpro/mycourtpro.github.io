@@ -73,6 +73,10 @@ Those links detail four possible actions available for the client application:
 * lists the reservations for a given club on a given day
 * reserve a slot
 
+The first three links are available via GET requests, while the last one is via POST, and it lists the expected fields (in the JSON document to post).
+
+The MyCourt API actually lists more possible actions for clients.
+
 ## HALf
 
 The MyCourt API builds on [HALf](https://github.com/jmettraux/half) which is an extension to [HAL](http://stateless.co/hal_specification.html).
