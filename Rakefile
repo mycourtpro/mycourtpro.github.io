@@ -23,6 +23,9 @@ task :build do
   sh('bundle exec jekyll build')
 end
 
+desc "shortcut for 'rake build'"
+task :b => :build
+
 desc %{
   triggers Compass compilation
 }
