@@ -30,7 +30,7 @@ You see information and links.
 
 The equivalent for a computer browsing the MyCourt API is:
 
-{% highlight javascript linenos %}
+{% highlight javascript %}
 {
   "_links": {
     "self": {
