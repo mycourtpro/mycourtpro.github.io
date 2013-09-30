@@ -1,4 +1,4 @@
 auto: true
 pygments: true
 permalink: /:year-:month-:day-:title.html
-exclude: [ 'README.md', 'Rakefile', 'TODO.txt' ]
+exclude: [ 'README.md', 'Rakefile', 'TODO.txt', 'Gemfile', 'Gemfile.lock' ]
