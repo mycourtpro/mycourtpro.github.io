@@ -10615,30 +10615,36 @@ body {
   }
 }
 /* line 43, ../_scss/site.scss */
+.sidebar-nav {
+  width: 200px;
+  position: fixed;
+}
+
+/* line 48, ../_scss/site.scss */
 img.brand {
   width: 120px;
 }
 
-/* line 46, ../_scss/site.scss */
+/* line 51, ../_scss/site.scss */
 .beta {
   display: inline;
   color: white;
   font-size: 80%;
 }
 
-/* line 53, ../_scss/site.scss */
+/* line 58, ../_scss/site.scss */
 img.screenshot {
   border: 1px solid #888888;
   box-shadow: 5px 5px 3px #888888;
   margin-bottom: 1.4em;
 }
 
-/* line 59, ../_scss/site.scss */
+/* line 64, ../_scss/site.scss */
 h1 {
   margin-bottom: 1.4em;
 }
 
-/* line 62, ../_scss/site.scss */
+/* line 67, ../_scss/site.scss */
 h2 {
   margin-top: 1.4em;
 }
