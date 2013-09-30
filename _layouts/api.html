@@ -11,12 +11,15 @@ layout: site
           <li class="nav-header">Introduction</li>
           <!--li class="active"><a href="#">Link</a></li-->
           <li><a href="/api/">intro</a></li>
+          <li><a href="/api/#json_over_http">JSON over HTTP</a></li>
           <li><a href="/api/#half">half</a></li>
-          <li><a href="/api/#halfjs">half.js</a></li>
           <li class="nav-header">Authentication</li>
-          <li><a href="/api/auth/">auth</a></li>
+          <li><a href="/api/auth.html">auth</a></li>
+          <li class="nav-header">HTTP and JSON</li>
+          <li><a href="/api/hyperjson.html">http</a></li>
+          <li><a href="/api/hyperjson.html#json">json</a></li>
           <li class="nav-header">Rels</li>
-          <li><a href="/api/intro/">rels</a></li>
+          <li><a href="/api/rels.html">rels</a></li>
         </ul>
       </div>
     </div>
@@ -46,9 +49,11 @@ layout: site
       var $e = $(e);
       $e.closest('li').toggleClass('active',($e.attr('href') === href));
     });
+
+    return true;
   }
 
-  $('.nav-list > li > a').on('click', toggleSidebar);
+  $('a').on('click', toggleSidebar);
 
   toggleSidebar();
 

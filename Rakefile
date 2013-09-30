@@ -13,6 +13,9 @@ task :serve do
   sh('bundle exec jekyll --server')
 end
 
+desc "shortcut for 'rake serve'"
+task :s => :serve
+
 desc %{
   generate continually the site (no serving on 4000)
 }
@@ -26,6 +29,9 @@ desc %{
 task :css do
   sh('bundle exec compass compile _compass/')
 end
+
+desc "shortcut for 'rake css'"
+task :c => :css
 
 # hidden, used only once
 task :copy do
