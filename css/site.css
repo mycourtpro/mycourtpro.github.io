@@ -10650,3 +10650,9 @@ h2 {
   font-size: 140%;
   margin-top: 1.4em;
 }
+
+/* line 72, ../_scss/site.scss */
+h3 {
+  font-size: 120%;
+  margin-top: 1.1em;
+}

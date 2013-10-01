@@ -16,6 +16,8 @@ The first step is to [obtain a secret key](#secret). Once this is done, keep tha
 
 <h2 id="secret">Obtaining a secret key</h2>
 
+<h3 id="knock">Knocking at the door</h3>
+
 You want to get in? Knock at the door first. The unique API endpoint is ```https://staging.mycourt.pro/api```, so let's knock that door:
 
 {% highlight javascript %}
@@ -30,7 +32,14 @@ You'll get a JSON document looking like:
   "message": "unauthorized",
   "_links": {
     "https://mycourt.pro/rels#auth": {
-      "href": "https://staging.mycourt.pro/api/auth"
+      "href": "https://staging.mycourt.pro:60364/api/auth",
+      "method": "POST",
+      "fields": [
+        { "name": "userEmail", "required": true },
+        { "name": "deviceName", "required": true },
+        { "name": "salt", "required": true },
+        { "name": "_aft", "value":"5bZvx..." }
+      ]
     }
   }
 }
@@ -39,6 +48,10 @@ You'll get a JSON document looking like:
 This isn't a [200](flow.html#code200), but a 401 "unauthorized". MyCourt will point you at where to get authenticated.
 
 As explained in [flow](flow.html), you're supposed to follow the ```#auth``` link. Here it's easy, it's the only link the MyCourt API communicated to you.
+
+<h3 id="announce">Announce yourself</h3>
+
+TODO...
 
 
 <h2 id="signing">Request signing</h2>
