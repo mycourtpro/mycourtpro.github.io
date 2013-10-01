@@ -46,3 +46,4 @@ DEPENDENCIES
   compass
   jekyll (= 1.2.1)
   rake
+  redcarpet (= 2.3.0)

@@ -10641,10 +10641,12 @@ img.screenshot {
 
 /* line 64, ../_scss/site.scss */
 h1 {
+  font-size: 150%;
   margin-bottom: 1.4em;
 }
 
-/* line 67, ../_scss/site.scss */
+/* line 68, ../_scss/site.scss */
 h2 {
+  font-size: 140%;
   margin-top: 1.4em;
 }
