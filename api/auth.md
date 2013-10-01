@@ -5,24 +5,41 @@ title: API authentication
 
 # MyCourt API auth
 
-To mourners whose tokens be thy lust
-Mutilate my rustling heart to this broken ground
-Not even the vermin can scour me
-Mourn my tremulous essence to this barren land
+Each request to the MyCourt API must be signed.
 
-<h2 id="authentication">Authentication</h2>
+The signature is the result of a function that takes as input the request itself (method, target, headers and body) and the secret key.
 
-In a witching hour my numbness shall hear
-Not even the angels can loom me
-Forsake my dead essence to this time ending
-In a death my bitterness shall try to run
+The secret key is shared between the client application that uses the API and the MyCourt system.
+
+The first step is to [obtain a secret key](#secret). Once this is done, keep that secret secret and [sign each request](#signing) with it.
+
 
 <h2 id="secret">Obtaining a secret key</h2>
 
-Curseder than cunning love,
-My wisdom! The melancholy!
-Mournfuler than rabid torment,
-To memories whose servitude be thy lust
+You want to get in? Knock at the door first. The unique API endpoint is ```https://staging.mycourt.pro/api```, so let's knock that door:
+
+{% highlight javascript %}
+curl https://staging.mycourt.pro/api
+{% endhighlight %}
+
+You'll get a JSON document looking like:
+
+{% highlight javascript %}
+{
+  "code": 401,
+  "message": "unauthorized",
+  "_links": {
+    "https://mycourt.pro/rels#auth": {
+      "href": "https://staging.mycourt.pro/api/auth"
+    }
+  }
+}
+{% endhighlight %}
+
+This isn't a [200](flow.html#code200), but a 401 "unauthorized". MyCourt will point you at where to get authenticated.
+
+As explained in [flow](flow.html), you're supposed to follow the ```#auth``` link. Here it's easy, it's the only link the MyCourt API communicated to you.
+
 
 <h2 id="signing">Request signing</h2>
 

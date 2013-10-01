@@ -1,6 +1,6 @@
 ---
 layout: api
-title: API
+title: API flow
 ---
 
 # MyCourt API flow

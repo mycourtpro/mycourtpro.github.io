@@ -1,6 +1,6 @@
 ---
 layout: api
-title: API - sample VB client
+title: API sample VB client
 ---
 
 # sample VB client
