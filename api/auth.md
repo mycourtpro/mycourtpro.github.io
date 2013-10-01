@@ -51,7 +51,20 @@ As explained in [flow](flow.html), you're supposed to follow the ```#auth``` lin
 
 <h3 id="announce">Announce yourself</h3>
 
-TODO...
+The auth link looks like:
+
+{% highlight javascript %}
+    "https://mycourt.pro/rels#auth": {
+      "href": "https://staging.mycourt.pro:60364/api/auth",
+      "method": "POST",
+      "fields": [
+        { "name": "userEmail", "required": true },
+        { "name": "deviceName", "required": true },
+        { "name": "salt", "required": true },
+        { "name": "_aft", "value":"5bZvx..." } ] }
+{% endhighlight %}
+
+You're expected to post a JSON document with 4 fields, "userEmail", "deviceName", "salt" and "_aft".
 
 
 <h2 id="signing">Request signing</h2>
