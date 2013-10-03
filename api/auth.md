@@ -16,7 +16,7 @@ The first step is to [obtain a secret key](#secret). Once this is done, keep tha
 
 <h2 id="secret">Obtaining a secret key</h2>
 
-TODO: insert roadmap / walktrough diagram here...
+<img class="shadowed" src="/images/auth_steps.png" />
 
 <h3 id="knock">Knocking at the door</h3>
 
