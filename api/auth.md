@@ -16,7 +16,11 @@ The first step is to [obtain a secret key](#secret). Once this is done, keep tha
 
 <h2 id="secret">Obtaining a secret key</h2>
 
+There are 4 steps to obtain a key. Those steps are a dialog between the client and the MyCourt system. Here is a graphical depiction:
+
 <img class="shadowed" src="/images/auth_steps.png" />
+
+Maybe, the fifth step would be "keep the key, and keep it secret".
 
 <h3 id="knock">Knocking at the door</h3>
 
@@ -84,7 +88,7 @@ So, to announce yourself, you have to post to ```https://staging.mycourt.pro/api
 }
 {% endhighlight %}
 
-This will prompt the MyCourt system to send you, via email, your secret key.
+This will prompt the MyCourt system to send you, via email, a code.
 
 The answer to the post will be something like:
 
@@ -102,11 +106,25 @@ The answer to the post will be something like:
 
 Prompting you to POST an empty JSON document to ```https://staging.mycourt.pro/api/auth/{keyId}``` as a confirmation.
 
-<h3 id="confirm">Confirm the secret key</h3>
+The code received by email is a string like "AF4G RT23 7RS4 123Q". It's meant to be entered easily in a mobile device.
+
+<h3 id="compute">Compute the key</h3>
+
+The code received by email is used to compute the secret key that is shared between you (client/device) and the MyCourt system.
+
+In Visual Basic, that would look like:
+
+{% highlight vb.net %}
+dim secret = Bcrypt.HashPassword(code.Replace(" ", ""), salt)
+{% endhighlight %}
+
+<h3 id="confirm">Confirm the key</h3>
 
 As just said, once you have requested a secret key over HTTPS and receveid by email, you have to confirm it via the ```#auth_confirmation``` link.
 
 This confirmation is only a matter of sending an empty JSON document (yes, ```{}``` is sufficient) via a POST to the ```#auth_confirmation``` link. But, this request has to be signed (with the secret key).
+
+Keep that secret key safely in your device/client. The platform you're developing for probably has a way to store such credentials in a secure way.
 
 
 <h2 id="signing">Request signing</h2>

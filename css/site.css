@@ -10633,30 +10633,25 @@ img.brand {
 }
 
 /* line 58, ../_scss/site.scss */
-img.screenshot {
+img.shadowed {
   border: 1px solid #888888;
   box-shadow: 5px 5px 3px #888888;
   margin-bottom: 1.4em;
 }
 
 /* line 64, ../_scss/site.scss */
-img.shadowed {
-  box-shadow: 5px 5px 3px #888888;
-}
-
-/* line 68, ../_scss/site.scss */
 h1 {
   font-size: 150%;
   margin-bottom: 1.4em;
 }
 
-/* line 72, ../_scss/site.scss */
+/* line 68, ../_scss/site.scss */
 h2 {
   font-size: 140%;
   margin-top: 1.4em;
 }
 
-/* line 76, ../_scss/site.scss */
+/* line 72, ../_scss/site.scss */
 h3 {
   font-size: 120%;
   margin-top: 1.1em;
