@@ -26,7 +26,7 @@ The "x-mycourt-date" is simply the current date in the RFC1123 format, "Mon, 05 
 
 The "x-mycourt-authorization" is computed by a simple function that combines the request details and the secret key you share with the MyCourt system.
 
-For more details about request signing, read [authentication](authentication.html).
+For more details about request signing, read [authentication](auth.html).
 
 
 <h2 id="hypermedia">Hypermedia</h2>

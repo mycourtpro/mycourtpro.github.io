@@ -16,6 +16,8 @@ The first step is to [obtain a secret key](#secret). Once this is done, keep tha
 
 <h2 id="secret">Obtaining a secret key</h2>
 
+TODO: insert roadmap / walktrough diagram here...
+
 <h3 id="knock">Knocking at the door</h3>
 
 You want to get in? Knock at the door first. The unique API endpoint is ```https://staging.mycourt.pro/api```, so let's knock that door:
@@ -32,7 +34,7 @@ You'll get a JSON document looking like:
   "message": "unauthorized",
   "_links": {
     "https://mycourt.pro/rels#auth": {
-      "href": "https://staging.mycourt.pro:60364/api/auth",
+      "href": "https://staging.mycourt.pro/api/auth",
       "method": "POST",
       "fields": [
         { "name": "userEmail", "required": true },
@@ -54,17 +56,57 @@ As explained in [flow](flow.html), you're supposed to follow the ```#auth``` lin
 The auth link looks like:
 
 {% highlight javascript %}
-    "https://mycourt.pro/rels#auth": {
-      "href": "https://staging.mycourt.pro:60364/api/auth",
-      "method": "POST",
-      "fields": [
-        { "name": "userEmail", "required": true },
-        { "name": "deviceName", "required": true },
-        { "name": "salt", "required": true },
-        { "name": "_aft", "value":"5bZvx..." } ] }
+  "https://mycourt.pro/rels#auth": {
+    "href": "https://staging.mycourt.pro/api/auth",
+    "method": "POST",
+    "fields": [
+      { "name": "userEmail", "required": true },
+      { "name": "deviceName", "required": true },
+      { "name": "salt", "required": true },
+      { "name": "_aft", "value":"5bZvx..." } ] }
 {% endhighlight %}
 
 You're expected to post a JSON document with 4 fields, "userEmail", "deviceName", "salt" and "_aft".
+
+* userEmail: this is the email you use to identify yourseful on the MyCourt website
+* deviceName: the name of this device, a short string like "iPhone" or "WinPhone8" is best
+* salt: a [bcrypt](http://en.wikipedia.org/wiki/Bcrypt) generated salt, it's a String of the form "$2a$14$olE7PUzfsq.iSd.5qNLlDu"
+* aft: this is an antiforgery token, you're simply expected to pass it back with your request
+
+So, to announce yourself, you have to post to ```https://staging.mycourt.pro/api/auth``` a JSON document that looks like:
+
+{% highlight javascript %}
+{
+  "userEmail": "toto@example.com",
+  "deviceName": "winPhone8",
+  "salt": "$2a$14$olE7PUzfsq.iSd.5qNLlDu"
+  "_aft": "5bZvx..."
+}
+{% endhighlight %}
+
+This will prompt the MyCourt system to send you, via email, your secret key.
+
+The answer to the post will be something like:
+
+{% highlight javascript %}
+{
+  "keyId": 1180,
+  "_links": {
+    "https://mycourt.pro/rels#auth_confirmation": {
+      "href": "https://staging.mycourt.pro/api/auth/1180",
+      "method": "POST"
+    }
+  }
+}
+{% endhighlight %}
+
+Prompting you to POST an empty JSON document to ```https://staging.mycourt.pro/api/auth/{keyId}``` as a confirmation.
+
+<h3 id="confirm">Confirm the secret key</h3>
+
+As just said, once you have requested a secret key over HTTPS and receveid by email, you have to confirm it via the ```#auth_confirmation``` link.
+
+This confirmation is only a matter of sending an empty JSON document (yes, ```{}``` is sufficient) via a POST to the ```#auth_confirmation``` link. But, this request has to be signed (with the secret key).
 
 
 <h2 id="signing">Request signing</h2>
