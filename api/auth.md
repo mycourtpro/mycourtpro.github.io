@@ -111,10 +111,35 @@ This confirmation is only a matter of sending an empty JSON document (yes, ```{}
 
 <h2 id="signing">Request signing</h2>
 
-I call thy name in madness with storm clouds
-Tremulouser than condemned in the void
-Swifter than damned in the void
-I make haunted servitude to thee
+Once you have a secret key (and its keyId), you can start signing requests. In face, as just seen, you have to confirm your key by signing a very first request (to ```#auth_confirmation```).
 
-(lore ipsum thanks to [https://gist.github.com/jart/3432955](https://gist.github.com/jart/3432955))
+A signed request is expected to sport two MyCourt specific headers: "x-mycourt-date" and "x-mycourt-signature".
+
+**x-mycourt-date** is the current (client) date expressed in the RFC1123 format, "Mon, 05 Aug 2013 08:49:35 GMT", for example. In Ruby, for example, you'd do ```Time.now.httpdate```.
+
+**x-mycourt-signature** is a string that looks like: "MyCourt KeyId=6012627,Algorithm=HMACSHA256,SignedHeaders=x-mycourt-date,Signature=ItkVqGfmD4R6Hyy1s+XfXugwSBArJx6O6wUSZz25jk9="
+
+Request signing is simply about inserting those two headers. The first one, "x-mycourt-date" is easy, the second one requires more work.
+
+<h3 id="what">What to sign</h3>
+
+The signature is computed from a string composed of lines (separated by linefeeds (not carriage returns, not linefeeds + carriage returns).
+
+The first line is the **method** (in uppercase) of the request, usually "GET" or "POST".
+
+The second line is the **path** of the URI targetted, starting from the "/api" part included. The next lines are the included **headers** and their values, generally it's only "x-mycourt-date". The format is "{header}:{value}" (a colon as separator, no spaces around the colon).
+
+Then a *blank line*.
+
+Then the *body* of the request.
+
+So something like:
+
+{% highlight js %}
+GET
+/api/auth/1180
+x-mycourt-date:Mon, 05 Aug 2013 08:49:35 GMT
+
+{"hello":"world"}
+{% endhighlight %}
 
