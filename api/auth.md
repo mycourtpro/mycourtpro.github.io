@@ -161,3 +161,19 @@ x-mycourt-date:Mon, 05 Aug 2013 08:49:35 GMT
 {"hello":"world"}
 {% endhighlight %}
 
+Here is how the signing looks in Visual Basic .NET:
+
+{% highlight vb.net %}
+Imports System.Security.Cryptography
+
+' ...
+
+Dim hmac =
+  New HMACSHA256(Encoding.UTF8.GetBytes(secret))
+
+Dim sig =
+  Convert.ToBase64String(
+      hmac.ComputeHash(
+          (new SHA256Managed).ComputeHash(data)))
+{% endhighlight %}
+
