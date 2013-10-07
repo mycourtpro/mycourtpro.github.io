@@ -1,0 +1,16 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    bcrypt-ruby (3.1.1)
+    net-http-persistent (2.8)
+    rufus-json (1.0.6)
+    yajl-ruby (1.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bcrypt-ruby
+  net-http-persistent
+  rufus-json
+  yajl-ruby

@@ -1,0 +1,8 @@
+
+source 'https://rubygems.org'
+
+gem 'bcrypt-ruby'
+gem 'yajl-ruby', :require => 'yajl'
+gem 'rufus-json'
+gem 'net-http-persistent'
+
