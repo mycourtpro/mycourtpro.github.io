@@ -43,8 +43,7 @@ You'll get a JSON document looking like:
       "fields": [
         { "name": "userEmail", "required": true },
         { "name": "deviceName", "required": true },
-        { "name": "salt", "required": true },
-        { "name": "_aft", "value":"5bZvx..." }
+        { "name": "salt", "required": true }
       ]
     }
   }
@@ -66,16 +65,14 @@ The auth link looks like:
     "fields": [
       { "name": "userEmail", "required": true },
       { "name": "deviceName", "required": true },
-      { "name": "salt", "required": true },
-      { "name": "_aft", "value":"5bZvx..." } ] }
+      { "name": "salt", "required": true } ] }
 {% endhighlight %}
 
-You're expected to post a JSON document with 4 fields, "userEmail", "deviceName", "salt" and "_aft".
+You're expected to post a JSON document with 3 fields, "userEmail", "deviceName" and "salt".
 
 * userEmail: this is the email you use to identify yourseful on the MyCourt website
 * deviceName: the name of this device, a short string like "iPhone" or "WinPhone8" is best
 * salt: a [bcrypt](http://en.wikipedia.org/wiki/Bcrypt) generated salt, it's a String of the form "$2a$14$olE7PUzfsq.iSd.5qNLlDu"
-* aft: this is an antiforgery token, you're simply expected to pass it back with your request
 
 So, to announce yourself, you have to post to ```https://staging.mycourt.pro/api/auth``` a JSON document that looks like:
 
@@ -84,7 +81,6 @@ So, to announce yourself, you have to post to ```https://staging.mycourt.pro/api
   "userEmail": "toto@example.com",
   "deviceName": "winPhone8",
   "salt": "$2a$14$olE7PUzfsq.iSd.5qNLlDu"
-  "_aft": "5bZvx..."
 }
 {% endhighlight %}
 
