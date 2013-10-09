@@ -95,14 +95,15 @@ describe MyCourtClient::Response do
                     { 'name' => 'day', 'required' => true },
                     { 'name' => 'start', 'required' => true },
                     { 'name' => 'end', 'required' => true },
-                    { 'name' => 'player1Id' },
+                    { 'name' => 'player1Id', 'default' => nil },
                     { 'name' => 'player2Id' },
                     { 'name' => '_aft', 'value' => 'e7C2vM3...' }
                   ]
                 },
                 'https://mycourt.pro/rels#bookmark-add' => {
                   'href' => 'https://staging.mycourt.pro/api/bookmark/{clubId}',
-                  'method' => 'POST'
+                  'method' => 'POST',
+                  'templated' => true
                 },
                 'https://mycourt.pro/rels#bookmark-remove' => {
                   'href' =>
@@ -220,9 +221,45 @@ describe MyCourtClient::Response do
           data
       end
 
-      it 'accepts links without forms'
-      it 'raises on missing "required": true fields'
-      it 'completes fields with "value"'
+      it 'posts to links without fields' do
+
+        @response.post('#bookmark-add', { :clubId => 21 }, {})
+
+        @client.last_request[:method] ==
+          :post
+        @client.last_request[:uri] ==
+          'https://staging.mycourt.pro/api/bookmark/21'
+        @client.last_request[:body] ==
+          {}
+      end
+
+      it 'raises on missing "required": true fields' do
+
+        lambda {
+          @response.post('#reserve', {}, {})
+        }.should raise_error(
+          ArgumentError,
+          "required field 'clubId' is missing"
+        )
+      end
+
+      it 'completes fields with "value" or "default"' do
+
+        data = {}
+        data['clubId'] = 19
+        data['courtId'] = 7
+        data['day'] = 20131212
+        data['start'] = 1200
+        data['end'] = 1300
+
+        dd = data.dup
+        dd['_aft'] = 'e7C2vM3...'
+        dd['player1Id'] = nil
+
+        @response.post('#reserve', data)
+
+        @client.last_request[:body].should == dd
+      end
     end
 
     describe '#delete' do

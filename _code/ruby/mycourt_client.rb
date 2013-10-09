@@ -175,7 +175,24 @@ class MyCourtClient
         params = nil
       end
 
-      uri = compute_uri(link(rel), params)
+      l = link(rel)
+
+      uri = compute_uri(l, params)
+
+      (l['fields'] || []).each do |f|
+
+        name = f['name']
+
+        if f['required'] == true
+          raise ArgumentError.new(
+            "required field '#{name}' is missing"
+          ) unless data.has_key?(name)
+        elsif f.has_key?('default')
+          data[name] = f['default'] unless data.has_key?(name)
+        elsif f.has_key?('value')
+          data[name] = f['value']
+        end
+      end
 
       @client.send(:request, :post, uri, data)
     end
