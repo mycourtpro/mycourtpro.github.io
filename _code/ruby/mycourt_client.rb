@@ -58,50 +58,42 @@ class MyCourtClient
     body['deviceName'] = @device_name
     body['salt'] = @salt
 
-    r = post(root.link('#auth'), {}, body)
+    r = request(:post, root.href('#auth'), {}, body)
 
     @key_id = r['keyId']
-    @confirmation_link = r.link('#auth_confirmation')
+    @confirmation_link = r.href('#auth_confirmation')
   end
 
   def confirm_authentication(code)
 
     @secret = BCrypt::Engine.hash_secret(code.gsub(/ /, ''), @salt)
 
-    post(@confirmation_link, {}, {})
+    request(:post, @confirmation_link, {}, {})
   end
 
   protected
 
   def request(meth, uri, headers, body)
 
-    puts [ meth, uri ].join(' ')
+    #puts [ meth, uri ].join(' ')
+
+    kla = Net::HTTP.const_get(meth.to_s.capitalize)
 
     uri = URI.parse(uri) unless uri.is_a?(URI)
     path = [ uri.path, uri.query ].compact.join('?')
 
-    req = meth.new(path, headers)
+    req = kla.new(path, headers)
 
     req.body = body.is_a?(String) ? body : Rufus::Json.encode(body) if body
 
     sign(uri, req)
 
-    Response.new(@http.request(uri, req))
-  end
-
-  def get(uri, headers={})
-
-    request(Net::HTTP::Get, uri, headers, nil)
-  end
-
-  def post(uri, headers, body)
-
-    request(Net::HTTP::Post, uri, headers, body)
+    Response.new(self, @http.request(uri, req))
   end
 
   def root
 
-    get(@endpoint)
+    request(:get, @endpoint, {}, nil)
   end
 
   def sign(uri, request)
@@ -144,12 +136,12 @@ class MyCourtClient
 
   class Response
 
-    def initialize(res)
+    def initialize(client, res)
 
+      @client = client
       @res = res
       @data = Rufus::Json.decode(@res.body)
-
-      pp @data
+      #pp @data
     end
 
     def [](key)
@@ -157,20 +149,22 @@ class MyCourtClient
       @data[key]
     end
 
-    def link(fragment)
+    def link(rel)
 
-      k, v = @data['_links'].find { |k, v|
-        k[-fragment.length..-1] == fragment
-      }
+      @data['_links'].each { |k, v| return v if k[-rel.length..-1] == rel }
 
-      k ? v['href'] : nil
+      nil
     end
 
-    def get
+    def href(rel)
+
+      (link(rel) || {})['href']
     end
 
-    def post(data)
-    end
+    #def get(rel)
+    #end
+    #def post(rel, data)
+    #end
   end
 end
 

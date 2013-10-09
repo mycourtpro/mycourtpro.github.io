@@ -15,19 +15,22 @@ describe MyCourtClient::Response do
     before :all do
 
       @response =
-        MyCourtClient::Response.new(FakeResponse.new(
-          '_links' => {
-            'https://mycourt.pro/rels#auth_confirmation' => {
-              'href' => 'https://staging.mycourt.pro/api/auth/1180',
-              'method' => 'POST'
-            }
-          }))
+        MyCourtClient::Response.new(
+          nil,
+          FakeResponse.new(
+            '_links' => {
+              'https://mycourt.pro/rels#auth_confirmation' => {
+                'href' => 'https://staging.mycourt.pro/api/auth/1180',
+                'method' => 'POST'
+              }
+            }))
     end
 
     it 'returns the first matching link' do
 
       @response.link('#auth_confirmation').should ==
-        'https://staging.mycourt.pro/api/auth/1180'
+        { 'href' => 'https://staging.mycourt.pro/api/auth/1180',
+          'method' => 'POST' }
     end
   end
 end
