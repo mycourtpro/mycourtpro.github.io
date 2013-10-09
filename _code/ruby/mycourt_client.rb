@@ -161,8 +161,13 @@ class MyCourtClient
       (link(rel) || {})['href']
     end
 
-    #def get(rel)
-    #end
+    def get(rel)
+
+      l = link(rel)
+
+      @client.send(:request, :get, l['href'], {}, nil)
+    end
+
     #def post(rel, data)
     #end
   end

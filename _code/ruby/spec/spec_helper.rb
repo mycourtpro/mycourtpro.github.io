@@ -8,17 +8,6 @@
 require_relative '../mycourt_client'
 
 
-class FakeResponse
-
-  attr_reader :body
-
-  def initialize(body)
-
-    @body =
-      body.is_a?(String) ? body : Rufus::Json.encode(body)
-  end
-end
-
 def credentials
 
   $credentials ||=
