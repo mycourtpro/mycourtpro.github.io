@@ -51,12 +51,12 @@ class MyCourtClient
 
     @salt = BCrypt::Engine.generate_salt(14)
 
-    h = {}
-    h['userEmail'] = @user_email
-    h['deviceName'] = @device_name
-    h['salt'] = @salt
+    body = {}
+    body['userEmail'] = @user_email
+    body['deviceName'] = @device_name
+    body['salt'] = @salt
 
-    r = post(root.link('#auth'), h, '')
+    r = post(root.link('#auth'), {}, body)
 
     @key_id = r['keyId']
     @confirmation_link = r.link('#auth_confirmation')
@@ -66,13 +66,12 @@ class MyCourtClient
 
   def request(meth, uri, headers, body)
 
-    p uri
-
     uri = URI.parse(uri) unless uri.is_a?(URI)
     path = [ uri.path, uri.query ].compact.join('?')
 
     req = meth.new(path, headers)
-    req.body = body if body
+
+    req.body = body.is_a?(String) ? body : Rufus::Json.encode(body) if body
 
     Response.new(@http.request(uri, req))
   end
