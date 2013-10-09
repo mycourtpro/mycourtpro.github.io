@@ -21,7 +21,11 @@ end
 
 def credentials
 
-  Rufus::Json.decode(File.read('.credentials'))
+  $credentials ||=
+    Rufus::Json.decode(File.read('.credentials')).inject({}) { |h, (k, v)|
+      h[k.to_sym] = v
+      h
+    }
 end
 
 #RSpec.configure do |config|

@@ -64,12 +64,6 @@ class MyCourtClient
     @confirmation_link = r.link('#auth_confirmation')
   end
 
-  #Public Sub ConfirmAuthentication(code As String)
-  #    Me.Secret = Bc.HashPassword(code.Replace(" ", ""), Me._salt)
-  #    Dim d = New Jo.Dict
-  #    DoRequest("POST", Me._ConfirmationLink, d)
-  #End Sub
-
   def confirm_authentication(code)
 
     @secret = BCrypt::Engine.hash_secret(code.gsub(/ /, ''), @salt)
@@ -154,6 +148,8 @@ class MyCourtClient
 
       @res = res
       @data = Rufus::Json.decode(@res.body)
+
+      pp @data
     end
 
     def [](key)
