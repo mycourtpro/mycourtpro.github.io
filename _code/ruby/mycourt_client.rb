@@ -154,7 +154,6 @@ class MyCourtClient
 
       @res = res
       @data = Rufus::Json.decode(@res.body)
-      pp @data
     end
 
     def [](key)
@@ -169,6 +168,12 @@ class MyCourtClient
       }
 
       k ? v['href'] : nil
+    end
+
+    def get
+    end
+
+    def post(data)
     end
   end
 end

@@ -12,10 +12,9 @@ require_relative 'mycourt_client'
 #
 #c.confirm_authentication(code)
 
-kid, sec = File.read('.secret').split(' ').collect(&:strip)
+eml, dev, kid, sec = File.read('.secret').split(' ').collect(&:strip)
 
-c = MyCourtClient.new(
-  'toto@example.com', 'smahon', :key_id => kid, :secret => sec)
+c = MyCourtClient.new(eml, dev, :key_id => kid, :secret => sec)
 
 c.send(:post, "https://staging.mycourt.pro/api/auth/" + kid, {}, {})
 
