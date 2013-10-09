@@ -58,7 +58,7 @@ class MyCourtClient
     body['deviceName'] = @device_name
     body['salt'] = @salt
 
-    r = request(:post, root.href('#auth'), {}, body)
+    r = request(:post, root.href('#auth'), body)
 
     @key_id = r['keyId']
     @confirmation_link = r.href('#auth_confirmation')
@@ -68,12 +68,12 @@ class MyCourtClient
 
     @secret = BCrypt::Engine.hash_secret(code.gsub(/ /, ''), @salt)
 
-    request(:post, @confirmation_link, {}, {})
+    request(:post, @confirmation_link, {})
   end
 
   protected
 
-  def request(meth, uri, headers, body)
+  def request(meth, uri, body)
 
     #puts [ meth, uri ].join(' ')
 
@@ -82,7 +82,7 @@ class MyCourtClient
     uri = URI.parse(uri) unless uri.is_a?(URI)
     path = [ uri.path, uri.query ].compact.join('?')
 
-    req = kla.new(path, headers)
+    req = kla.new(path)
 
     req.body = body.is_a?(String) ? body : Rufus::Json.encode(body) if body
 
@@ -93,7 +93,7 @@ class MyCourtClient
 
   def root
 
-    request(:get, @endpoint, {}, nil)
+    request(:get, @endpoint, nil)
   end
 
   def sign(uri, request)
@@ -161,15 +161,55 @@ class MyCourtClient
       (link(rel) || {})['href']
     end
 
-    def get(rel)
+    def get(rel, params=nil)
 
-      l = link(rel)
+      uri = compute_uri(link(rel), params)
 
-      @client.send(:request, :get, l['href'], {}, nil)
+      @client.send(:request, :get, uri, nil)
     end
 
-    #def post(rel, data)
+    def post(rel, params, data=nil)
+
+      if data == nil
+        data = params
+        params = nil
+      end
+
+      uri = compute_uri(link(rel), params)
+
+      @client.send(:request, :post, uri, data)
+    end
+
+    #def delete(rel, params=nil)
     #end
+
+    protected
+
+    def compute_uri(link, params)
+
+      uri = link['href']
+
+      return uri unless link['templated'] == true
+
+      params.each { |k, v| uri.gsub!(/\{#{k}\}/, URI.encode(v.to_s)) }
+
+      i = uri.index('{?')
+
+      return uri unless i
+
+      items = uri[i + 2..-2].split(',')
+      uri = uri[0..i - 1]
+
+      items =
+        items.collect { |it|
+          it = it.to_sym
+          params.has_key?(it) ? "#{it}=#{URI.encode(params[it].to_s)}" : nil
+        }.compact
+
+      uri = uri + '?' + items.join('&') if items.length > 0
+
+      uri
+    end
   end
 end
 

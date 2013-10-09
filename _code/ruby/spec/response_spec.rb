@@ -23,10 +23,9 @@ class FakeMyCourtClient
 
   attr_reader :last_request
 
-  def request(method, uri, headers, body)
+  def request(method, uri, body)
 
-    @last_request =
-      { :method => method, :uri => uri, :headers => headers, :body => body }
+    @last_request = { :method => method, :uri => uri, :body => body }
 
     nil
   end
@@ -101,6 +100,10 @@ describe MyCourtClient::Response do
                     { 'name' => '_aft', 'value' => 'e7C2vM3...' }
                   ]
                 },
+                'https://mycourt.pro/rels#bookmark-add' => {
+                  'href' => 'https://staging.mycourt.pro/api/bookmark/{clubId}',
+                  'method' => 'POST'
+                },
                 'https://mycourt.pro/rels#bookmark-remove' => {
                   'href' =>
                     'https://staging.mycourt.pro/api/bookmark/{clubId}',
@@ -121,7 +124,6 @@ describe MyCourtClient::Response do
 
         @client.last_request[:method].should == :get
         @client.last_request[:uri].should == 'https://staging.mycourt.pro/api'
-        @client.last_request[:headers].should == {}
         @client.last_request[:body].should == nil
       end
 
@@ -140,6 +142,92 @@ describe MyCourtClient::Response do
         @client.last_request[:uri].should ==
           'https://staging.mycourt.pro/api/clubs'
       end
+
+      context '"templated": true' do
+
+        it 'completes the path' do
+
+          @response.get(
+            'https://mycourt.pro/rels#reservations',
+            :clubId => 19, :day => 20131019)
+
+          @client.last_request[:uri].should ==
+            'https://staging.mycourt.pro/api/reservations/19/20131019'
+        end
+
+        it 'completes the query string (1)' do
+
+          @response.get(
+            'https://mycourt.pro/rels#members',
+            :clubId => 19)
+
+          @client.last_request[:uri].should ==
+            'https://staging.mycourt.pro/api/members/19'
+        end
+
+        it 'completes the query string (2)' do
+
+          @response.get(
+            'https://mycourt.pro/rels#members',
+            :clubId => 19, :count => 21)
+
+          @client.last_request[:uri].should ==
+            'https://staging.mycourt.pro/api/members/19?count=21'
+        end
+
+        it 'completes the query string (3)' do
+
+          @response.get(
+            'https://mycourt.pro/rels#members',
+            :clubId => 19, :query => 'toto', :count => 21)
+
+          @client.last_request[:uri].should ==
+            'https://staging.mycourt.pro/api/members/19?query=toto&count=21'
+        end
+
+        it 'escapes the query string values' do
+
+          @response.get(
+            'https://mycourt.pro/rels#members',
+            :clubId => 7, :query => 'to to')
+
+          @client.last_request[:uri].should ==
+            'https://staging.mycourt.pro/api/members/7?query=to%20to'
+        end
+      end
+    end
+
+    describe '#post' do
+
+      it 'posts reservations' do
+
+        data = {}
+        data['clubId'] = 19
+        data['courtId'] = 7
+        data['day'] = 20131212
+        data['start'] = 1200
+        data['end'] = 1300
+        data['player1Id'] = 49
+        data['player2Id'] = 50
+
+        @response.post('#reserve', data)
+
+        @client.last_request[:method].should ==
+          :post
+        @client.last_request[:uri].should ==
+          'https://staging.mycourt.pro/api/reservation'
+        @client.last_request[:body].should ==
+          data
+      end
+
+      it 'accepts links without forms'
+      it 'raises on missing "required": true fields'
+      it 'completes fields with "value"'
+    end
+
+    describe '#delete' do
+
+      it 'works'
     end
   end
 end
