@@ -21,6 +21,7 @@
 #++
 
 require 'time'
+require 'base64'
 require 'bcrypt'
 require 'rufus-json/automatic'
 require 'net/http/persistent'
@@ -32,6 +33,7 @@ class MyCourtClient
 
   attr_reader :user_email
   attr_reader :device_name
+  attr_reader :key_id
 
   def initialize(user_email, device_name, opts={})
 
@@ -62,9 +64,24 @@ class MyCourtClient
     @confirmation_link = r.link('#auth_confirmation')
   end
 
+  #Public Sub ConfirmAuthentication(code As String)
+  #    Me.Secret = Bc.HashPassword(code.Replace(" ", ""), Me._salt)
+  #    Dim d = New Jo.Dict
+  #    DoRequest("POST", Me._ConfirmationLink, d)
+  #End Sub
+
+  def confirm_authentication(code)
+
+    @secret = BCrypt::Engine.hash_secret(code.gsub(/ /, ''), @salt)
+
+    post(@confirmation_link, {}, {})
+  end
+
   protected
 
   def request(meth, uri, headers, body)
+
+    puts [ meth, uri ].join(' ')
 
     uri = URI.parse(uri) unless uri.is_a?(URI)
     path = [ uri.path, uri.query ].compact.join('?')
@@ -72,6 +89,8 @@ class MyCourtClient
     req = meth.new(path, headers)
 
     req.body = body.is_a?(String) ? body : Rufus::Json.encode(body) if body
+
+    sign(uri, req)
 
     Response.new(@http.request(uri, req))
   end
@@ -89,6 +108,44 @@ class MyCourtClient
   def root
 
     get(@endpoint)
+  end
+
+  def sign(uri, request)
+
+    return unless @secret
+
+    request['x-mycourt-date'] = Time.now.utc.httpdate
+
+    headers = []
+    tosign = []
+
+    tosign << request.class.name.split('::').last.upcase
+    tosign << uri.to_s.match(/(\/api.*)$/)[1]
+
+    request.each_header do |h|
+      headers << h
+      tosign << "#{h}:#{request[h]}"
+    end
+
+    tosign << "\n"
+    tosign << request.body || ''
+
+    headers = headers.join(";")
+    tosign = tosign.join("\n")
+
+    sig =
+      Base64.encode64(
+        OpenSSL::HMAC.digest(
+          OpenSSL::Digest.new('SHA256'),
+          @secret,
+          OpenSSL::Digest::SHA256.digest(tosign))).strip
+
+    request['x-mycourt-authorization'] =
+      "MyCourt " +
+      "KeyId=#{@key_id}," +
+      "Algorithm=HMACSHA256," +
+      "SignedHeaders=#{headers}," +
+      "Signature=#{sig}"
   end
 
   class Response
