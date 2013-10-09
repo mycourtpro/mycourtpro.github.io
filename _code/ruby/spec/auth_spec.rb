@@ -26,20 +26,6 @@ describe MyCourtClient do
         client.instance_variable_get(:@confirmation_link).should ==
           "https://staging.mycourt.pro/api/auth/#{client.key_id}"
       end
-
-      it 'fucks up' do
-
-        client = MyCourtClient.new(nil, nil)
-
-        client.authenticate
-
-        true.should == false
-
-        # returns a 400, right, but includes links as if the client
-        # were authenticated...
-        #
-        # TODO: fix that
-      end
     end
 
     describe '#confirm_authentication' do
