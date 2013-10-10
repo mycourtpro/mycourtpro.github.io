@@ -60,7 +60,7 @@ class MyCourtClient
 
     r = request(:post, root.href('#auth'), body)
 
-    @key_id = r['keyId']
+    @key_id = r.data['keyId']
     @confirmation_link = r.href('#auth_confirmation')
   end
 
@@ -69,6 +69,11 @@ class MyCourtClient
     @secret = BCrypt::Engine.hash_secret(code.gsub(/ /, ''), @salt)
 
     request(:post, @confirmation_link, {})
+  end
+
+  def root
+
+    request(:get, @endpoint, nil)
   end
 
   protected
@@ -89,11 +94,6 @@ class MyCourtClient
     sign(uri, req)
 
     Response.new(self, @http.request(uri, req))
-  end
-
-  def root
-
-    request(:get, @endpoint, nil)
   end
 
   def sign(uri, request)
@@ -136,6 +136,8 @@ class MyCourtClient
 
   class Response
 
+    attr_reader :data
+
     def initialize(client, res)
 
       @client = client
@@ -162,9 +164,9 @@ class MyCourtClient
       end
     end
 
-    def [](key)
+    def embedded
 
-      @data[key]
+      @data['_embedded']
     end
 
     def link(rel)
