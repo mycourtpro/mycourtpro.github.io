@@ -149,8 +149,16 @@ describe MyCourtClient::Response do
         lambda {
           @response.get('#flip-burger')
         }.should raise_error(
-          ArgumentError,
-          "no link found for '#flip-burger'"
+          ArgumentError, "no link found for '#flip-burger'"
+        )
+      end
+
+      it "raises an ArgumentError if the rel doesn't point to a GET link" do
+
+        lambda {
+          @response.get('#reserve')
+        }.should raise_error(
+          ArgumentError, 'link method is POST, not GET'
         )
       end
 
