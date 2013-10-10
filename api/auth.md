@@ -212,3 +212,12 @@ require 'base64'
 
 ([complete Ruby example client source](https://github.com/mycourtpro/mycourtpro.github.io/tree/master/_code/ruby/mycourt_client.rb))
 
+
+<h2 id="conclusion">Conclusion</h2>
+
+You've seen how to request a secret key and then how to use it to confirm it.
+
+You have one day to confirm a key else it gets discard after one day (you can simply request a new one).
+
+Now that you've signed successfully your confirmation, you can sign [all the requests you need](flow.html).
+
