@@ -29,6 +29,7 @@ require 'net/http/persistent'
 
 class MyCourtClient
 
+  VERSION = '1.0.0'
   ENDPOINT = 'https://staging.mycourt.pro/api'
 
   attr_reader :user_email
@@ -47,6 +48,10 @@ class MyCourtClient
     @confirmation_link = nil
 
     @http = Net::HTTP::Persistent.new('MyCourt')
+
+    @user_agent =
+      "#{self.class} #{VERSION} - " +
+      "Ruby #{RUBY_VERSION}-p#{RUBY_PATCHLEVEL} #{RUBY_PLATFORM}"
   end
 
   def authenticate
@@ -88,6 +93,8 @@ class MyCourtClient
     path = [ uri.path, uri.query ].compact.join('?')
 
     req = kla.new(path)
+
+    req['user-agent'] = @user_agent
 
     req.body = body.is_a?(String) ? body : Rufus::Json.encode(body) if body
 
