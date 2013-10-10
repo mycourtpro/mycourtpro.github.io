@@ -23,8 +23,8 @@
 require 'time'
 require 'base64'
 require 'bcrypt'
+require 'net/http'
 require 'rufus-json/automatic'
-require 'net/http/persistent'
 
 
 class MyCourtClient
@@ -47,7 +47,9 @@ class MyCourtClient
     @salt = nil
     @confirmation_link = nil
 
-    @http = Net::HTTP::Persistent.new('MyCourt')
+    u = URI.parse(@endpoint)
+    @http = Net::HTTP.new(u.host, u.port)
+    @http.use_ssl = u.scheme == 'https'
 
     @user_agent =
       "#{self.class} #{VERSION} - " +
@@ -100,7 +102,7 @@ class MyCourtClient
 
     sign(req)
 
-    Response.new(self, @http.request(uri, req))
+    Response.new(self, @http.request(req))
   end
 
   def sign(request)
@@ -164,9 +166,13 @@ class MyCourtClient
         mk = self.singleton_class
 
         if hm == :post || hm == :put
-          mk.define_method(m) { |params, data=nil| send(hm, k, params, data) }
+          mk.instance_eval do
+            define_method(m) { |params, data=nil| send(hm, k, params, data) }
+          end
         else
-          mk.define_method(m) { |params=nil| send(hm, k, params) }
+          mk.instance_eval do
+            define_method(m) { |params=nil| send(hm, k, params) }
+          end
         end
       end
     end
