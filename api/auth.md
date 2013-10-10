@@ -114,6 +114,11 @@ In Visual Basic, that would look like:
 dim secret = Bcrypt.HashPassword(code.Replace(" ", ""), salt)
 {% endhighlight %}
 
+and in Ruby:
+{% highlight ruby %}
+secret = BCrypt::Engine.hash_secret(code.gsub(/ /, ''), salt)
+{% endhighlight %}
+
 <h3 id="confirm">Confirm the key</h3>
 
 As just said, once you have requested a secret key over HTTPS and receveid by email, you have to confirm it via the ```#auth_confirmation``` link.
@@ -157,19 +162,49 @@ x-mycourt-date:Mon, 05 Aug 2013 08:49:35 GMT
 {"hello":"world"}
 {% endhighlight %}
 
-Here is how the signing looks in Visual Basic .NET:
+Here is how the signing looks in Ruby:
 
-{% highlight vb.net %}
-Imports System.Security.Cryptography
+{% highlight ruby %}
+require 'base64'
 
-' ...
+# ...
 
-Dim hmac =
-  New HMACSHA256(Encoding.UTF8.GetBytes(secret))
+  # Where request is of class Net::HTTP::{Get|Post|Put|Delete}
+  #
+  def sign(uri, request)
 
-Dim sig =
-  Convert.ToBase64String(
-      hmac.ComputeHash(
-          (new SHA256Managed).ComputeHash(data)))
+    request['x-mycourt-date'] = Time.now.utc.httpdate
+
+    headers = []
+    tosign = []
+
+    tosign << request.class.name.split('::').last.upcase
+    tosign << uri.match(/(\/api.*)$/)[1]
+
+    request.each_header do |h|
+      headers << h
+      tosign << "#{h}:#{request[h]}"
+    end
+
+    tosign << "\n"
+    tosign << request.body || ''
+
+    headers = headers.join(";")
+    tosign = tosign.join("\n")
+
+    sig =
+      Base64.encode64(
+        OpenSSL::HMAC.digest(
+          OpenSSL::Digest.new('SHA256'),
+          @secret,
+          OpenSSL::Digest::SHA256.digest(tosign))).strip
+
+    request['x-mycourt-authorization'] =
+      "MyCourt " +
+      "KeyId=#{@key_id}," +
+      "Algorithm=HMACSHA256," +
+      "SignedHeaders=#{headers}," +
+      "Signature=#{sig}"
+  end
 {% endhighlight %}
 
