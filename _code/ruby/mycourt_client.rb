@@ -162,7 +162,7 @@ class MyCourtClient
 
     def get(rel, params=nil)
 
-      uri = compute_uri(link(rel), params)
+      uri = compute_uri(rel, params)
 
       @client.send(:request, :get, uri, nil)
     end
@@ -174,11 +174,9 @@ class MyCourtClient
         params = nil
       end
 
-      l = link(rel)
+      uri = compute_uri(rel, params)
 
-      uri = compute_uri(l, params)
-
-      (l['fields'] || []).each do |f|
+      (link(rel)['fields'] || []).each do |f|
 
         name = f['name']
 
@@ -201,7 +199,11 @@ class MyCourtClient
 
     protected
 
-    def compute_uri(link, params)
+    def compute_uri(rel, params)
+
+      link = link(rel)
+
+      raise ArgumentError.new("no link found for '#{rel}'") unless link
 
       uri = link['href']
 

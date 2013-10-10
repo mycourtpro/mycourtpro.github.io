@@ -144,6 +144,16 @@ describe MyCourtClient::Response do
           'https://staging.mycourt.pro/api/clubs'
       end
 
+      it "raises an ArgumentError if the rel doesn't exist" do
+
+        lambda {
+          @response.get('#flip-burger')
+        }.should raise_error(
+          ArgumentError,
+          "no link found for '#flip-burger'"
+        )
+      end
+
       context '"templated": true' do
 
         it 'completes the path' do
@@ -264,7 +274,20 @@ describe MyCourtClient::Response do
 
     describe '#delete' do
 
-      it 'works'
+      it 'works' do
+
+        @response.delete('#bookmark-remove', :clubId => 19)
+
+        pp @client.last_request
+      end
+    end
+
+    context 'ad-hoc methods' do
+
+      describe '#reserve' do
+
+        it 'works'
+      end
     end
   end
 end
