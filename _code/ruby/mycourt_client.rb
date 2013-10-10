@@ -194,8 +194,12 @@ class MyCourtClient
       @client.send(:request, :post, uri, data)
     end
 
-    #def delete(rel, params=nil)
-    #end
+    def delete(rel, params=nil)
+
+      uri = compute_uri(:delete, rel, params)
+
+      @client.send(:request, :delete, uri, nil)
+    end
 
     protected
 

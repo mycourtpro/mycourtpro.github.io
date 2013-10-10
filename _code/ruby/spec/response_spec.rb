@@ -282,11 +282,16 @@ describe MyCourtClient::Response do
 
     describe '#delete' do
 
-      it 'works' do
+      it 'removes bookmarks' do
 
         @response.delete('#bookmark-remove', :clubId => 19)
 
-        pp @client.last_request
+        @client.last_request[:method].should ==
+          :delete
+        @client.last_request[:uri].should ==
+          'https://staging.mycourt.pro/api/bookmark/19'
+        @client.last_request[:body].should ==
+          nil
       end
     end
 
