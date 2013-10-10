@@ -171,7 +171,9 @@ require 'base64'
 
   # Where request is of class Net::HTTP::{Get|Post|Put|Delete}
   #
-  def sign(uri, request)
+  def sign(request)
+
+    return unless @secret
 
     request['x-mycourt-date'] = Time.now.utc.httpdate
 
@@ -179,7 +181,7 @@ require 'base64'
     tosign = []
 
     tosign << request.class.name.split('::').last.upcase
-    tosign << uri.match(/(\/api.*)$/)[1]
+    tosign << request.path.to_s.match(/(\/api.*)$/)[1]
 
     request.each_header do |h|
       headers << h
@@ -207,4 +209,6 @@ require 'base64'
       "Signature=#{sig}"
   end
 {% endhighlight %}
+
+([complete Ruby example client source](https://github.com/mycourtpro/mycourtpro.github.io/tree/master/_code/ruby/mycourt_client.rb))
 

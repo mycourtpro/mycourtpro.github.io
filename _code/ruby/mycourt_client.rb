@@ -98,12 +98,12 @@ class MyCourtClient
 
     req.body = body.is_a?(String) ? body : Rufus::Json.encode(body) if body
 
-    sign(uri, req)
+    sign(req)
 
     Response.new(self, @http.request(uri, req))
   end
 
-  def sign(uri, request)
+  def sign(request)
 
     return unless @secret
 
@@ -113,7 +113,7 @@ class MyCourtClient
     tosign = []
 
     tosign << request.class.name.split('::').last.upcase
-    tosign << uri.to_s.match(/(\/api.*)$/)[1]
+    tosign << request.path.to_s.match(/(\/api.*)$/)[1]
 
     request.each_header do |h|
       headers << h
