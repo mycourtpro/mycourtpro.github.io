@@ -110,6 +110,11 @@ describe MyCourtClient::Response do
                     'https://staging.mycourt.pro/api/bookmark/{clubId}',
                   'method' => 'DELETE',
                   'templated' => true
+                },
+                'https://mycourt.pro/rels#whatever-update' => {
+                  'href' =>
+                    'https://staging.mycourt.pro/api/whatever-update',
+                  'method' => 'PUT'
                 }
               },
               'version' => '1.0'
@@ -292,6 +297,21 @@ describe MyCourtClient::Response do
           'https://staging.mycourt.pro/api/bookmark/19'
         @client.last_request[:body].should ==
           nil
+      end
+    end
+
+    describe '#put' do
+
+      it 'puts' do
+
+        @response.put('#whatever-update', {})
+
+        @client.last_request[:method].should ==
+          :put
+        @client.last_request[:uri].should ==
+          'https://staging.mycourt.pro/api/whatever-update'
+        @client.last_request[:body].should ==
+          {}
       end
     end
 

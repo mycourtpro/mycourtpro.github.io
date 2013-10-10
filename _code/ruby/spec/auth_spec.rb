@@ -28,10 +28,10 @@ describe MyCourtClient do
       end
     end
 
-    describe '#confirm_authentication' do
-
-      it 'works'
-    end
+    #describe '#confirm_authentication' do
+    #
+    #  it 'works'
+    #end
   end
 end
 

@@ -188,49 +188,41 @@ class MyCourtClient
       (link(rel) || {})['href']
     end
 
-    def get(rel, params=nil)
+    [ :get, :delete ].each do |m|
 
-      uri = compute_uri(:get, rel, params)
+      define_method(m) do |rel, params=nil|
 
-      @client.send(:request, :get, uri, nil)
+        uri = compute_uri(__method__, rel, params)
+
+        @client.send(:request, __method__, uri, nil)
+      end
     end
 
-    def post(rel, params, data=nil)
+    [ :post, :put ].each do |m|
 
-      if data == nil
-        data = params
-        params = nil
-      end
+      define_method(m) do |rel, params, data=nil|
 
-      uri = compute_uri(:post, rel, params)
+        params, data = [ nil, params ] if data == nil
 
-      (link(rel)['fields'] || []).each do |f|
+        uri = compute_uri(__method__, rel, params)
 
-        name = f['name']
+        (link(rel)['fields'] || []).each do |f|
 
-        if f['required'] == true
-          raise ArgumentError.new(
-            "required field '#{name}' is missing"
-          ) unless data.has_key?(name)
-        elsif f.has_key?('default')
-          data[name] = f['default'] unless data.has_key?(name)
-        elsif f.has_key?('value')
-          data[name] = f['value']
+          name = f['name']
+
+          if f['required'] == true
+            raise ArgumentError.new(
+              "required field '#{name}' is missing"
+            ) unless data.has_key?(name)
+          elsif f.has_key?('default')
+            data[name] = f['default'] unless data.has_key?(name)
+          elsif f.has_key?('value')
+            data[name] = f['value']
+          end
         end
+
+        @client.send(:request, __method__, uri, data)
       end
-
-      @client.send(:request, :post, uri, data)
-    end
-
-    #def put(rel, params, data=nil)
-    # TODO: almost like a POST...
-    #end
-
-    def delete(rel, params=nil)
-
-      uri = compute_uri(:delete, rel, params)
-
-      @client.send(:request, :delete, uri, nil)
     end
 
     protected
