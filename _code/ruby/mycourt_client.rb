@@ -141,6 +141,25 @@ class MyCourtClient
       @client = client
       @res = res
       @data = Rufus::Json.decode(@res.body)
+
+      # add a method to instance of Response for each link
+
+      @data['_links'].each do |k, v|
+
+        frag = (k.match(/(#.+)$/) || [])[1]
+
+        next unless frag
+
+        m = frag[1..-1].gsub(/-/, '_')
+        hm = (v['method'] || 'GET').downcase.to_sym
+        mk = self.singleton_class
+
+        if hm == :post || hm == :put
+          mk.define_method(m) { |params, data=nil| send(hm, k, params, data) }
+        else
+          mk.define_method(m) { |params=nil| send(hm, k, params) }
+        end
+      end
     end
 
     def [](key)
@@ -193,6 +212,10 @@ class MyCourtClient
 
       @client.send(:request, :post, uri, data)
     end
+
+    #def put(rel, params, data=nil)
+    # TODO: almost like a POST...
+    #end
 
     def delete(rel, params=nil)
 

@@ -297,9 +297,58 @@ describe MyCourtClient::Response do
 
     context 'ad-hoc methods' do
 
+      describe '#my_clubs' do
+
+        it 'gets my clubs' do
+
+          r = @response.my_clubs
+
+          @client.last_request[:method].should ==
+            :get
+          @client.last_request[:uri].should ==
+            'https://staging.mycourt.pro/api/clubs'
+          @client.last_request[:body].should ==
+            nil
+        end
+      end
+
       describe '#reserve' do
 
-        it 'works'
+        it 'posts a reservation' do
+
+          data = {}
+          data['clubId'] = 19
+          data['courtId'] = 7
+          data['day'] = 20131212
+          data['start'] = 1200
+          data['end'] = 1300
+          data['player1Id'] = 49
+          data['player2Id'] = 50
+
+          @response.reserve(data)
+
+          @client.last_request[:method].should ==
+            :post
+          @client.last_request[:uri].should ==
+            'https://staging.mycourt.pro/api/reservation'
+          @client.last_request[:body].should ==
+            data
+        end
+      end
+
+      describe '#bookmark_remove' do
+
+        it 'deletes a bookmark' do
+
+          @response.bookmark_remove(:clubId => 19)
+
+          @client.last_request[:method].should ==
+            :delete
+          @client.last_request[:uri].should ==
+            'https://staging.mycourt.pro/api/bookmark/19'
+          @client.last_request[:body].should ==
+            nil
+        end
       end
     end
   end
