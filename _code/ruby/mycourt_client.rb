@@ -141,7 +141,6 @@ class MyCourtClient
       @client = client
       @res = res
       @data = Rufus::Json.decode(@res.body)
-      #pp @data
     end
 
     def [](key)
