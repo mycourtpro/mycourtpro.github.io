@@ -180,3 +180,46 @@ The ```token``` is a [Paymill](http://paymill.com) token (obtained via the Paymi
 
 See also [#clubs](#clubs) and [#subscribe](#subscribe).
 
+
+<h2 id="translations">GET #translations</h2>
+
+{% highlight javascript %}
+"https://mycourt.pro/rels#translations": {
+  "href": "https://staging.mycourt.pro/api/translations"
+}
+{% endhighlight %}
+
+Currently only used to pass translated sport names.
+
+This is what the typical answer (minus links) looks like:
+
+{% highlight javascript %}
+{
+  "version": "1.0",
+  "_embedded": {
+    "sports": [
+      {
+        "id": 1, "name": "Tennis", "key": "tennis",
+        "de": ".sports.tennis", "en": "tennis", "fr": "tennis"
+      },
+      {
+        "id": 2, "name": "Squash", "key": "squash",
+        "de": ".sports.squash", "en": "squash", "fr": "squash"
+      },
+      {
+        "id": 3, "name": "Badminton", "key": "badminton",
+        "de": ".sports.badminton", "en": "badminton", "fr": "badminton"
+      },
+      {
+        "id": 4, "name": "Table tennis", "key": "table_tennis",
+        "de": ".sports.table_tennis", "en": "table tennis", "fr": "tennis de table"
+      },
+      {
+        "id": 5, "name": "Basque pelota", "key": "basque_pelota",
+        "de": ".sports.basque_pelota", "en": "basque pelota", "fr": "pelote basque"
+      }
+    ]
+  }
+}
+{% endhighlight %}
+
