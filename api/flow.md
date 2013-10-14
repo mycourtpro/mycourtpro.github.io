@@ -118,6 +118,11 @@ Here's what could get POSTed to the MyCourt API:
 {% endhighlight %}
 
 
+<h2 id="status">status codes</h2>
+
+blah blah blah.
+
+
 <h2 id="rels">rels</h2>
 
 blah blah blah.
