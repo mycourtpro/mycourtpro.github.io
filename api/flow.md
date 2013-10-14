@@ -141,9 +141,13 @@ Here is a refresher on the codes the MyCourt API may return:
 
 "The request has succeeded."
 
+The information/response is the JSON object in the payload.
+
 <h3 id="204-no-content">204 No Content</h3>
 
 "The server has fulfilled the request but does not need to return an entity-body"
+
+A simple "OK", no further answer / payload required.
 
 <h3 id="304-not-modified">304 Not Modified</h3>
 
@@ -153,23 +157,37 @@ Here is a refresher on the codes the MyCourt API may return:
 
 "The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modifications."
 
+Missing form fields and/or query string parameters. Carefully look at how the request is built and what the server expects.
+
 <h3 id="401-unauthorized">401 Unauthorized</h3>
 
 "The request requires user authentication."
+
+The MyCourt API returns 401 when the user is not authenticated. A link to the authentication endpoint is included in the JSON payload.
 
 <h3 id="402-payment-required">402 Payment Required</h3>
 
 "This code is reserved for future use."
 
+This is what the MyCourt API answers when the user attempts to reserve a paying slot or buy a club subscription but his credit card information is missing or invalid.
+
 <h3 id="403 Forbidden">403 Forbidden</h3>
 
 "The server understood the request, but is refusing to fulfill it. Authorization will not help and the request SHOULD NOT be repeated."
+
+The user hasn't enough rights for his request to be completed.
 
 <h3 id="404-not-found">404 Not Found</h3>
 
 "The server has not found anything matching the Request-URI. No indication is given of whether the condition is temporary or permanent."
 
+Shouldn't happen often as the user (agent) mostly follows links, unless the link is "templated" and the query string parameters are wrong (unknown clubId, etc).
+
 <h3 id="500-internal-server-error">500 Internal Server Error</h3>
 
 "The server encountered an unexpected condition which prevented it from fulfilling the request."
+
+This response indicates an issue on the MyCourt server side. The admins are notified and hopefully the issue is resolved sooner or later.
+
+Don't hesitate to contact us via the [developer issue tracker](https://github.com/mycourtpro/mycourtpro.github.io/issues) if such an issue is a blocker for you (especially when developing a client application).
 
