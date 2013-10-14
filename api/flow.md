@@ -122,5 +122,54 @@ For a description of all the links see [link rels](rels.html).
 
 <h2 id="status">status codes</h2>
 
-blah blah blah.
+The MyCourt API, being based on HTTP, relies on clients understanding [HTTP status codes](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
+
+Here is a refresher on the codes the MyCourt API may return:
+
+* [200 OK](#200-ok)
+* [204 No Content](#204-no-content)
+* [304 Not Modified](#304-not-modified)
+* [400 Bad Request](#400-bad-request)
+* [401 Unauthorized](#401-unauthorized)
+* [402 Payment Required](#402-payment-required)
+* [403 Forbidden](#403-forbidden)
+* [404 Not Found](#404-not-found)
+* [500 Internal Server Error](#500-internal-server-error)
+
+
+<h3 id="200-ok">200 OK</h3>
+
+"The request has succeeded."
+
+<h3 id="204-no-content">204 No Content</h3>
+
+"The server has fulfilled the request but does not need to return an entity-body"
+
+<h3 id="304-not-modified">304 Not Modified</h3>
+
+"If the client has performed a conditional GET request and access is allowed, but the document has not been modified, the server SHOULD respond with this status code. The 304 response MUST NOT contain a message-body, and thus is always terminated by the first empty line after the header fields."
+
+<h3 id="400-bad-request">400 Bad Request</h3>
+
+"The request could not be understood by the server due to malformed syntax. The client SHOULD NOT repeat the request without modifications."
+
+<h3 id="401-unauthorized">401 Unauthorized</h3>
+
+"The request requires user authentication."
+
+<h3 id="402-payment-required">402 Payment Required</h3>
+
+"This code is reserved for future use."
+
+<h3 id="403 Forbidden">403 Forbidden</h3>
+
+"The server understood the request, but is refusing to fulfill it. Authorization will not help and the request SHOULD NOT be repeated."
+
+<h3 id="404-not-found">404 Not Found</h3>
+
+"The server has not found anything matching the Request-URI. No indication is given of whether the condition is temporary or permanent."
+
+<h3 id="500-internal-server-error">500 Internal Server Error</h3>
+
+"The server encountered an unexpected condition which prevented it from fulfilling the request."
 
