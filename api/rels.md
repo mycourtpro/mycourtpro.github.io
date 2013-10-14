@@ -12,6 +12,7 @@ URLs do not matter and they might change.
 Here is a list of the rels supported by the MyCourt API. Click to jump to details.
 
 * [#my-clubs](#my-clubs)
+* [#clubs](#clubs)
 * [#my-reservations](#my-reservations)
 * [#reservations](#reservations)
 * [#members](#members)
@@ -36,6 +37,25 @@ Here is a list of the rels supported by the MyCourt API. Click to jump to detail
 Lists the clubs the user owns, is member of or has bookmarked.
 
 See also [#bookmark-add](#bookmark-add) and [#bookmark-remove](#bookmark-remove).
+
+---
+
+<h2 id="clubs">GET #clubs</h2>
+
+{% highlight javascript %}
+"https://mycourt.pro/rels#clubs": {
+  "href": "https://staging.mycourt.pro/api/clubs{?query,country,count}",
+  "templated": true
+}
+{% endhighlight %}
+
+Lists clubs registered in MyCourt. Next step would be to bookmark it or to request its membership.
+
+The ```query``` is a string. Clubs whose information (name, street, city, ...) begins with that string (case ignored) are returned.
+
+TODO: #membership-request
+
+See also [#my-clubs](#my-clubs) and [#bookmark-add](#bookmark-add).
 
 ---
 
