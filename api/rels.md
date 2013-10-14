@@ -9,6 +9,21 @@ Rule: noun is a GET request, verb is a POST, PUT or DELETE request.
 
 URLs do not matter and they might change.
 
+Here is a list of the rels supported by the MyCourt API. Click to jump to details.
+
+* [#my-clubs](#my-clubs)
+* [#my-reservations](#my-reservations)
+* [#reservations](#reservations)
+* [#members](#members)
+* [#reserve](#reserve) (POST)
+* [#subscribe](#subscribe) (POST)
+* [#bookmark-add](#bookmark-add) (POST)
+* [#bookmark-remove](#bookmark-remove) (DELETE)
+* [#slot-prices](#slot-prices)
+* [#payment-add](#payment-add) (POST)
+* [#translations](#translations)
+
+---
 
 <h2 id="my-clubs">GET #my-clubs</h2>
 
@@ -22,6 +37,7 @@ Lists the clubs the user owns, is member of or has bookmarked.
 
 See also [#bookmark-add](#bookmark-add) and [#bookmark-remove](#bookmark-remove).
 
+---
 
 <h2 id="my-reservations">GET #my-reservations</h2>
 
@@ -35,6 +51,7 @@ Lists all the upcoming reservations for the user.
 
 See also [#reservations](#reservations) and [#reserve](#reserve).
 
+---
 
 <h2 id="reservations">GET #reservations</h2>
 
@@ -49,6 +66,7 @@ Lists all the reservations for a given club on a given day.
 
 See also [#my-reservations](#my-reservations) and [#reserve](#reserve).
 
+---
 
 <h2 id="members">GET #members</h2>
 
@@ -67,6 +85,7 @@ Query is used to narrow to users whose names (first or last) start with the give
 
 See also [#clubs](#clubs) and [#reserve](#reserve).
 
+---
 
 <h2 id="reserve">POST #reserve</h2>
 
@@ -90,6 +109,7 @@ Posts a reservation.
 
 See also [#reservations](#reservations) and [#my-reservations](#my-reservations).
 
+---
 
 <h2 id="subscribe">POST #subscribe</h2>
 
@@ -113,6 +133,7 @@ The owner of a club may use this method (thanks to ```userId```) to attribute a 
 
 See also [#clubs](#clubs).
 
+---
 
 <h2 id="bookmark-add">POST #bookmark-add</h2>
 
@@ -130,6 +151,7 @@ Bookmarks a club.
 
 See also [#clubs](#clubs) and [#bookmark-remove](#bookmark-remove).
 
+---
 
 <h2 id="bookmark-remove">DELETE #bookmark-remove</h2>
 
@@ -145,6 +167,7 @@ Removes a club bookmark.
 
 See also [#clubs](#clubs) and [#bookmark-add](#bookmark-add).
 
+---
 
 <h2 id="slot-prices">GET #slot-prices</h2>
 
@@ -159,6 +182,7 @@ Lists all the slot prices for a club on a given day (court group by court group)
 
 See also [#clubs](#clubs) and [#reservations](#reservations).
 
+---
 
 <h2 id="payment-add">POST #payment-add</h2>
 
@@ -180,6 +204,7 @@ The ```token``` is a [Paymill](http://paymill.com) token (obtained via the Paymi
 
 See also [#clubs](#clubs) and [#subscribe](#subscribe).
 
+---
 
 <h2 id="translations">GET #translations</h2>
 
