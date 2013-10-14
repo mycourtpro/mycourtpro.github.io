@@ -117,15 +117,10 @@ Here's what could get POSTed to the MyCourt API:
 }
 {% endhighlight %}
 
+For a description of all the links see [link rels](rels.html).
+
 
 <h2 id="status">status codes</h2>
 
 blah blah blah.
-
-
-<h2 id="rels">rels</h2>
-
-blah blah blah.
-
-link to [rels.html](rels.html)
 
