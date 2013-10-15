@@ -133,6 +133,8 @@ See also [#clubs](#clubs) and [#reserve](#reserve).
 
 Posts a reservation.
 
+Returns ```402 Payment Required``` if the slot requested is subject to a tariff and the user has not yet specified a credit card for this this (see [#payment-add](#payment-add)).
+
 See also [#reservations](#reservations) and [#my-reservations](#my-reservations).
 
 ---
@@ -156,6 +158,8 @@ Purchases a subscription.
 The ```userId``` defaults to the current user's id.
 
 The owner of a club may use this method (thanks to ```userId```) to attribute a subscription to a user.
+
+Returns ```402 Payment Required``` if the user is not an owner of the club and has not yet indicated which credit card to use (see [#payment-add](#payment-add)).
 
 See also [#clubs](#clubs).
 
