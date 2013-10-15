@@ -22,6 +22,7 @@ Here is a list of the rels supported by the MyCourt API. Click to jump to detail
 * [#bookmark-remove](#bookmark-remove) (DELETE)
 * [#slot-prices](#slot-prices)
 * [#payment-add](#payment-add) (POST)
+* [#membership-request](#membership-request) (POST)
 * [#translations](#translations)
 
 ---
@@ -221,6 +222,29 @@ See also [#clubs](#clubs) and [#reservations](#reservations).
 Adds a payment token for the current user in the given club. ```nick``` is a string like "my visa card" or "amex gold spare".
 
 The ```token``` is a [Paymill](http://paymill.com) token (obtained via the Paymill bridge).
+
+See also [#clubs](#clubs) and [#subscribe](#subscribe).
+
+---
+
+<h2 id="membership-request">POST #membership-request</h2>
+
+{% highlight javascript %}
+"https://mycourt.pro/rels#membership-request": {
+  "href": "https://staging.mycourt.pro/api/membership",
+  "method": "POST",
+  "fields": [
+    { "name": "clubId", "required": true },
+    { "name": "userId" }
+  ]
+}
+{% endhighlight %}
+
+Request membership to a given club.
+
+Returns 409 Conflict if there is already an existing membership (active, requested or any other state) for this club (and the current user).
+
+Specifying ```clubId``` and ```userId``` lets the owner of a club accept a membership request via the MyCourt API. (Not yet implemented).
 
 See also [#clubs](#clubs) and [#subscribe](#subscribe).
 
