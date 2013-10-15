@@ -59,7 +59,7 @@ Lists clubs registered in MyCourt. Next step would be to bookmark it or to reque
 
 The ```query``` is a string. Clubs whose information (name, street, city, ...) begins with that string (case ignored) are returned.
 
-TODO: #membership-request
+The ```country``` query parameter expects a two-char country code like "de", "ch" or "us". It limits the query to the given country.
 
 See also [#my-clubs](#my-clubs) and [#bookmark-add](#bookmark-add).
 
