@@ -25,6 +25,11 @@ Here is a list of the rels supported by the MyCourt API. Click to jump to detail
 * [#membership-request](#membership-request) (POST)
 * [#translations](#translations)
 
+<!---
+* [#auth](#auth)
+* [#auth_confirmation](#auth_confirmation)
+-->
+
 ---
 
 <h2 id="my-clubs">GET #my-clubs</h2>
