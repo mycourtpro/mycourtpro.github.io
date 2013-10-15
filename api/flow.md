@@ -18,17 +18,17 @@ For the MyCourt API, the links are grouped under a "_links" key in the JSON docu
 {% highlight javascript %}
 {
   "_links": {
-    "https://mycourt.pro/rels#my-clubs": {
+    "http://mycourtpro.github.io/api/rels.html#my-clubs": {
       "href": "https://mycourt.com/api/clubs"
     },
-    "https://mycourt.pro/rels#my-reservations": {
+    "http://mycourtpro.github.io/api/rels.html#my-reservations": {
       "href": "https://mycourt.com/api/reservations"
     },
-    "https://mycourt.pro/rels#reservations": {
+    "http://mycourtpro.github.io/api/rels.html#reservations": {
       "href": "http://localhost:60364/api/reservations/{clubId}/{day}",
       "templated": true
     },
-    "https://mycourt.pro/rels#reserve": {
+    "http://mycourtpro.github.io/api/rels.html#reserve": {
       "href": "https://mycourt.com/api/reservation",
       "method": "POST",
       "fields": [
@@ -65,7 +65,7 @@ Let's take a closer look at the some of the links shown above:
 * straight GET
 
 {% highlight javascript %}
-    "https://staging.mycourt.pro/rels#my-clubs": {
+    "http://mycourtpro.github.io/api/rels.html#my-clubs": {
       "href": "https://mycourt.com/api/clubs"
     }
 {% endhighlight %}
@@ -75,7 +75,7 @@ A straightforward link that translates as ```GET https://mycourt.com/api/clubs``
 * templated GET
 
 {% highlight javascript %}
-    "https://staging.mycourt.pro/rels#reservations": {
+    "http://mycourtpro.github.io/api/rels.html#reservations": {
       "href": "http://localhost:60364/api/reservations/{clubId}/{day}",
       "templated": true
     }
@@ -86,7 +86,7 @@ Another GET link but this time the "href" is templated (hence ```"templated": tr
 * POST with form
 
 {% highlight javascript %}
-    "https://mycourt.pro/rels#reserve": {
+    "http://mycourtpro.github.io/api/rels.html#reserve": {
       "href": "https://staging.mycourt.pro/api/reservation",
       "method": "POST",
       "fields": [

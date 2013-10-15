@@ -37,7 +37,7 @@ You'll get a JSON document looking like:
   "code": 401,
   "message": "unauthorized",
   "_links": {
-    "https://mycourt.pro/rels#auth": {
+    "http://mycourtpro.github.io/api/rels.html#auth": {
       "href": "https://staging.mycourt.pro/api/auth",
       "method": "POST",
       "fields": [
@@ -59,7 +59,7 @@ As explained in [flow](flow.html), you're supposed to follow the ```#auth``` lin
 The auth link looks like:
 
 {% highlight javascript %}
-  "https://mycourt.pro/rels#auth": {
+  "http://mycourtpro.github.io/api/rels.html#auth": {
     "href": "https://staging.mycourt.pro/api/auth",
     "method": "POST",
     "fields": [
@@ -92,7 +92,7 @@ The answer to the post will be something like:
 {
   "keyId": 1180,
   "_links": {
-    "https://mycourt.pro/rels#auth_confirmation": {
+    "http://mycourtpro.github.io/api/rels.html#auth_confirmation": {
       "href": "https://staging.mycourt.pro/api/auth/1180",
       "method": "POST"
     }

@@ -30,7 +30,7 @@ Here is a list of the rels supported by the MyCourt API. Click to jump to detail
 <h2 id="my-clubs">GET #my-clubs</h2>
 
 {% highlight javascript %}
-"https://mycourt.pro/rels#my-clubs": {
+"http://mycourtpro.github.io/api/rels.html#my-clubs": {
   "href": "https://staging.mycourt.pro/api/clubs"
 }
 {% endhighlight %}
@@ -44,7 +44,7 @@ See also [#bookmark-add](#bookmark-add) and [#bookmark-remove](#bookmark-remove)
 <h2 id="clubs">GET #clubs</h2>
 
 {% highlight javascript %}
-"https://mycourt.pro/rels#clubs": {
+"http://mycourtpro.github.io/api/rels.html#clubs": {
   "href": "https://staging.mycourt.pro/api/clubs{?query,country,count}",
   "templated": true
 }
@@ -63,7 +63,7 @@ See also [#my-clubs](#my-clubs) and [#bookmark-add](#bookmark-add).
 <h2 id="my-reservations">GET #my-reservations</h2>
 
 {% highlight javascript %}
-"https://mycourt.pro/rels#my-reservations": {
+"http://mycourtpro.github.io/api/rels.html#my-reservations": {
   "href": "https://staging.mycourt.pro/api/reservations"
 }
 {% endhighlight %}
@@ -77,7 +77,7 @@ See also [#reservations](#reservations) and [#reserve](#reserve).
 <h2 id="reservations">GET #reservations</h2>
 
 {% highlight javascript %}
-"https://mycourt.pro/rels#reservations": {
+"http://mycourtpro.github.io/api/rels.html#reservations": {
   "href": "https://staging.mycourt.pro/api/reservations/{clubId}/{day}",
   "templated": true
 }
@@ -92,7 +92,7 @@ See also [#my-reservations](#my-reservations) and [#reserve](#reserve).
 <h2 id="members">GET #members</h2>
 
 {% highlight javascript %}
-"https://mycourt.pro/rels#members": {
+"http://mycourtpro.github.io/api/rels.html#members": {
   "href": "https://staging.mycourt.pro/api/members/{clubId}{?query,count}",
   "templated": true
 }
@@ -111,7 +111,7 @@ See also [#clubs](#clubs) and [#reserve](#reserve).
 <h2 id="reserve">POST #reserve</h2>
 
 {% highlight javascript %}
-"https://mycourt.pro/rels#reserve": {
+"http://mycourtpro.github.io/api/rels.html#reserve": {
   "href": "https://staging.mycourt.pro/api/reservation",
   "method": "POST",
   "fields": [
@@ -135,7 +135,7 @@ See also [#reservations](#reservations) and [#my-reservations](#my-reservations)
 <h2 id="subscribe">POST #subscribe</h2>
 
 {% highlight javascript %}
-"https://mycourt.pro/rels#subscribe": {
+"http://mycourtpro.github.io/api/rels.html#subscribe": {
   "href": "https://staging.mycourt.pro/api/subscription",
   "method": "POST",
   "fields": [
@@ -159,7 +159,7 @@ See also [#clubs](#clubs).
 <h2 id="bookmark-add">POST #bookmark-add</h2>
 
 {% highlight javascript %}
-"https://mycourt.pro/rels#bookmark-add": {
+"http://mycourtpro.github.io/api/rels.html#bookmark-add": {
   "href": "https://staging.mycourt.pro/api/bookmark",
   "method": "POST",
   "fields": [
@@ -177,7 +177,7 @@ See also [#clubs](#clubs) and [#bookmark-remove](#bookmark-remove).
 <h2 id="bookmark-remove">DELETE #bookmark-remove</h2>
 
 {% highlight javascript %}
-"https://mycourt.pro/rels#bookmark-remove": {
+"http://mycourtpro.github.io/api/rels.html#bookmark-remove": {
   "href": "https://staging.mycourt.pro/api/bookmark/{clubId}",
   "method": "DELETE",
   "templated": true
@@ -193,7 +193,7 @@ See also [#clubs](#clubs) and [#bookmark-add](#bookmark-add).
 <h2 id="slot-prices">GET #slot-prices</h2>
 
 {% highlight javascript %}
-"https://mycourt.pro/rels#slot-prices": {
+"http://mycourtpro.github.io/api/rels.html#slot-prices": {
   "href": "https://staging.mycourt.pro/api/clubs/{clubId}/prices/{day}",
   "templated": true
 }
@@ -208,7 +208,7 @@ See also [#clubs](#clubs) and [#reservations](#reservations).
 <h2 id="payment-add">POST #payment-add</h2>
 
 {% highlight javascript %}
-"https://mycourt.pro/rels#payment-add": {
+"http://mycourtpro.github.io/api/rels.html#payment-add": {
   "href": "https://staging.mycourt.pro/api/payment",
   "method": "POST",
   "fields": [
@@ -230,7 +230,7 @@ See also [#clubs](#clubs) and [#subscribe](#subscribe).
 <h2 id="membership-request">POST #membership-request</h2>
 
 {% highlight javascript %}
-"https://mycourt.pro/rels#membership-request": {
+"http://mycourtpro.github.io/api/rels.html#membership-request": {
   "href": "https://staging.mycourt.pro/api/membership",
   "method": "POST",
   "fields": [
@@ -253,7 +253,7 @@ See also [#clubs](#clubs) and [#subscribe](#subscribe).
 <h2 id="translations">GET #translations</h2>
 
 {% highlight javascript %}
-"https://mycourt.pro/rels#translations": {
+"http://mycourtpro.github.io/api/rels.html#translations": {
   "href": "https://staging.mycourt.pro/api/translations"
 }
 {% endhighlight %}
