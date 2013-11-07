@@ -21,6 +21,7 @@ Here is a list of the rels supported by the MyCourt API. Click to jump to detail
 * [#bookmark-add](#bookmark-add) (POST)
 * [#bookmark-remove](#bookmark-remove) (DELETE)
 * [#slot-prices](#slot-prices)
+* [#slots](#slots)
 * [#payment-add](#payment-add) (POST)
 * [#membership-request](#membership-request) (POST)
 * [#translations](#translations)
@@ -89,6 +90,8 @@ See also [#reservations](#reservations) and [#reserve](#reserve).
 {% endhighlight %}
 
 Lists all the reservations for a given club on a given day.
+
+**Note**: avoid this method and use [#slots](#slots) instead.
 
 See also [#my-reservations](#my-reservations) and [#reserve](#reserve).
 
@@ -210,7 +213,143 @@ See also [#clubs](#clubs) and [#bookmark-add](#bookmark-add).
 
 Lists all the slot prices for a club on a given day (court group by court group).
 
+**Note**: avoid this method and use [#slots](#slots) instead.
+
 See also [#clubs](#clubs) and [#reservations](#reservations).
+
+---
+
+<h2 id="slots">GET #slots</h2>
+
+{% highlight javascript %}
+"http://mycourtpro.github.io/api/rels.html#slots": {
+  "href": "https://staging.mycourt.pro/api/clubs/{clubId}/slots/{day}",
+  "templated": true
+}
+{% endhighlight %}
+
+A combination of [#reservations](#reservations) and [#slot-prices](#slot-prices) (will deprecate those two).
+
+Returns in one stroke each court slots with prices and reservations.
+
+Here is a sample response (only one court though):
+
+{% highlight javascript %}
+{
+  "version": "1.0",
+  "_embedded": {
+    "slots": [
+      {
+        "courtId": 69484,
+        "courtName": "old dirty court",
+        "courtGroupId": 62799,
+        "courtGroupName": "Group1",
+        "slots": [
+          {
+            "reservations": [],
+            "slot": "0700",
+            "price": 0.0,
+            "start": 700,
+            "end": 800,
+            "associationId": 161670,
+            "associationName": "subscription",
+            "associationKind": "subscription",
+            "associationSubKind": "subscription",
+            "associations": []
+          },
+          {
+            "reservations": [],
+            "slot": "0800",
+            "price": 0.0,
+            "start": 800,
+            "end": 900,
+            "associationId": 161670,
+            "associationName": "subscription",
+            "associationKind": "subscription",
+            "associationSubKind": "subscription",
+            "associations": []
+          },
+          {
+            "reservations": [
+              {
+                "id": 16991,
+                "courtId": 69484,
+                "courtName": "old dirty court",
+                "clubId": 55035,
+                "clubName": "Club des Modzons",
+                "clubLongName": "Club des Modzons - Malibu",
+                "day": 20131111,
+                "start": 900,
+                "end": 1000,
+                "hour": "0900",
+                "slot": "20131111-900",
+                "slotStart": "09:00",
+                "slotEnd": "10:00",
+                "slotDay": "11.11.2013",
+                "player1Id": 79936,
+                "player1Name": "Alfred Muster",
+                "player1DetailedName": "Alfred Muster ( 1800)",
+                "player2Id": 79937,
+                "player2Name": "Bob Scampioni",
+                "player2DetailedName": "Bob Scampioni ( 1800)",
+                "modifierId": 79937,
+                "modifier": "Bob Scampioni",
+                "updatedAt": "11/7/2013 9:47:19 AM",
+                "associationId": 161670,
+                "price": "0EUR"
+              },
+              {
+                "id": 16992,
+                "courtId": 69484,
+                "courtName": "old dirty court",
+                "clubId": 55035,
+                "clubName": "Club des Modzons",
+                "clubLongName": "Club des Modzons - Malibu",
+                "day": 20131111,
+                "start": 900,
+                "end": 1000,
+                "hour": "0900",
+                "slot": "20131111-900",
+                "slotStart": "09:00",
+                "slotEnd": "10:00",
+                "slotDay": "11.11.2013",
+                "modifierId": 79937,
+                "modifier": "Bob Scampioni",
+                "updatedAt": "11/7/2013 9:47:19 AM",
+                "associationId": 161670,
+                "price": "0EUR"
+              }
+            ],
+            "slot": "0900",
+            "price": 0.0,
+            "start": 900,
+            "end": 1000,
+            "associationId": 161670,
+            "associationName": "subscription",
+            "associationKind": "subscription",
+            "associationSubKind": "subscription",
+            "associations": []
+          },
+          {
+            "reservations": [],
+            "slot": "1000",
+            "price": 0.0,
+            "start": 1000,
+            "end": 1100,
+            "associationId": 161670,
+            "associationName": "subscription",
+            "associationKind": "subscription",
+            "associationSubKind": "subscription",
+            "associations": []
+          }
+        ]
+      }
+    ]
+  }
+}
+{% endhighlight %}
+
+See also [#clubs](#clubs).
 
 ---
 
