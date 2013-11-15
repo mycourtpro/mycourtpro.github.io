@@ -14,13 +14,11 @@ Here is a list of the rels supported by the MyCourt API. Click to jump to detail
 * [#my-clubs](#my-clubs)
 * [#clubs](#clubs)
 * [#my-reservations](#my-reservations)
-* [#reservations](#reservations)
 * [#members](#members)
 * [#reserve](#reserve) (POST)
 * [#subscribe](#subscribe) (POST)
 * [#bookmark-add](#bookmark-add) (POST)
 * [#bookmark-remove](#bookmark-remove) (DELETE)
-* [#slot-prices](#slot-prices)
 * [#slots](#slots)
 * [#payment-add](#payment-add) (POST)
 * [#membership-request](#membership-request) (POST)
@@ -77,23 +75,6 @@ See also [#my-clubs](#my-clubs) and [#bookmark-add](#bookmark-add).
 Lists all the upcoming reservations for the user.
 
 See also [#reservations](#reservations) and [#reserve](#reserve).
-
----
-
-<h2 id="reservations">GET #reservations</h2>
-
-{% highlight javascript %}
-"http://mycourtpro.github.io/api/rels.html#reservations": {
-  "href": "https://staging.mycourt.pro/api/reservations/{clubId}/{day}",
-  "templated": true
-}
-{% endhighlight %}
-
-Lists all the reservations for a given club on a given day.
-
-**Note**: avoid this method and use [#slots](#slots) instead.
-
-See also [#my-reservations](#my-reservations) and [#reserve](#reserve).
 
 ---
 
@@ -199,23 +180,6 @@ See also [#clubs](#clubs) and [#bookmark-remove](#bookmark-remove).
 Removes a club bookmark.
 
 See also [#clubs](#clubs) and [#bookmark-add](#bookmark-add).
-
----
-
-<h2 id="slot-prices">GET #slot-prices</h2>
-
-{% highlight javascript %}
-"http://mycourtpro.github.io/api/rels.html#slot-prices": {
-  "href": "https://staging.mycourt.pro/api/clubs/{clubId}/prices/{day}",
-  "templated": true
-}
-{% endhighlight %}
-
-Lists all the slot prices for a club on a given day (court group by court group).
-
-**Note**: avoid this method and use [#slots](#slots) instead.
-
-See also [#clubs](#clubs) and [#reservations](#reservations).
 
 ---
 
