@@ -22,6 +22,7 @@ Here is a list of the rels supported by the MyCourt API. Click to jump to detail
 * [#slots](#slots)
 * [#payment-add](#payment-add) (POST)
 * [#membership-request](#membership-request) (POST)
+* [#associations](#associations)
 * [#translations](#translations)
 
 <!---
@@ -196,11 +197,12 @@ A combination of [#reservations](#reservations) and [#slot-prices](#slot-prices)
 
 Returns in one stroke each court slots with prices and reservations.
 
-Here is a sample response (only one court though):
+Here is a sample response (only one court though, and links edited out for brevity):
 
 {% highlight javascript %}
 {
   "version": "1.0",
+  "userId": 82328,
   "_embedded": {
     "slots": [
       {
@@ -359,6 +361,62 @@ Returns 409 Conflict if there is already an existing membership (active, request
 Specifying ```clubId``` and ```userId``` lets the owner of a club accept a membership request via the MyCourt API. (Not yet implemented).
 
 See also [#clubs](#clubs) and [#subscribe](#subscribe).
+---
+
+<h2 id="associations">GET #associations</h2>
+
+{% highlight javascript %}
+"http://mycourtpro.github.io/api/rels.html#associations": {
+  "href": "https://staging.mycourt.pro/api/club/{clubId}/associations"
+}
+{% endhighlight %}
+
+Returns a dictionary (JSON object) mapping association ids to association JSON representations.
+There is a special entry (key is "templates") that lists those association ids that point to template association (the list of subscriptions the current user can acquire in this club).
+
+This call is used in conjunction with [#slots](#slots) when more info about associations is required (display to the user probably).
+
+Typical answer (minus links):
+
+{% highlight javascript %}
+{
+  "version": "1.0",
+  "userId": 82328,
+  "associations": {
+    "templates": [
+      167423
+    ],
+    "167422": {
+      "id": 167422,
+      "userId": 82328,
+      "clubId": 56685,
+      "status": "active",
+      "description": null,
+      "kind": "membership",
+      "name": "member",
+      "rank": 0,
+      "dataBag": {},
+      "createdAt": "2013-11-17T01:16:28.07Z",
+      "updatedAt": "2013-11-17T01:16:29.76Z"
+    },
+    "167423": {
+      "id": 167423,
+      "userId": null,
+      "clubId": 56685,
+      "status": "active",
+      "description": null,
+      "kind": "subscription",
+      "name": "standard0",
+      "rank": 0,
+      "dataBag": {},
+      "createdAt": "2013-11-17T01:16:28.077Z",
+      "updatedAt": "2013-11-17T01:16:29.76Z"
+    }
+  }
+}
+{% endhighlight %}
+
+See also [#slots](#slots).
 
 ---
 
@@ -377,6 +435,7 @@ This is what the typical answer (minus links) looks like:
 {% highlight javascript %}
 {
   "version": "1.0",
+  "userId": 82328,
   "_embedded": {
     "sports": [
       {
