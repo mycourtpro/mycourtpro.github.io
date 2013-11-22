@@ -197,7 +197,7 @@ Returns in one stroke each court slots with prices and reservations.
 
 The answer is structured in an object with two entries: "slots" and "associations". The slots lists all the slots for the day for the club, with prices and reservations. Prices and reservations may refer to associations. They only do it via the associationId. The "associations" part of the answer is an object that can be used to look up the association details.
 
-The associations are included in the answer because calling [#associations](#associations) will only return "active" associations. In the case of a "prepaid" subscription, it might become "consumed" and not by returned by #association, but he "associations" part of the #slots answer will contain it.
+The associations are included in the answer because calling [#associations](#associations) will only return "active" associations. In the case of a "prepaid" subscription, it might become "consumed" and not by returned by #association, but the "associations" part of the #slots answer will contain it.
 
 Here is a sample response (only one court though, and links edited out for brevity):
 
