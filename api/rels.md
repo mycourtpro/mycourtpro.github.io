@@ -193,126 +193,260 @@ See also [#clubs](#clubs) and [#bookmark-add](#bookmark-add).
 }
 {% endhighlight %}
 
-A combination of [#reservations](#reservations) and [#slot-prices](#slot-prices) (will deprecate those two).
-
 Returns in one stroke each court slots with prices and reservations.
+
+The answer is structured in an object with two entries: "slots" and "associations". The slots lists all the slots for the day for the club, with prices and reservations. Prices and reservations may refer to associations. They only do it via the associationId. The "associations" part of the answer is an object that can be used to look up the association details.
+
+The associations are included in the answer because calling [#associations](#associations) will only return "active" associations. In the case of a "prepaid" subscription, it might become "consumed" and not by returned by #association, but he "associations" part of the #slots answer will contain it.
 
 Here is a sample response (only one court though, and links edited out for brevity):
 
 {% highlight javascript %}
 {
   "version": "1.0",
-  "userId": 82328,
-  "_embedded": {
-    "slots": [
-      {
-        "courtId": 69484,
-        "courtName": "old dirty court",
-        "courtGroupId": 62799,
-        "courtGroupName": "Group1",
-        "slots": [
-          {
-            "reservations": [],
-            "slot": "0700",
-            "price": 0.0,
-            "start": 700,
-            "end": 800,
-            "associationId": 161670,
-            "associationName": "subscription",
-            "associationKind": "subscription",
-            "associationSubKind": "subscription",
-            "associations": []
-          },
-          {
-            "reservations": [],
-            "slot": "0800",
-            "price": 0.0,
-            "start": 800,
-            "end": 900,
-            "associationId": 161670,
-            "associationName": "subscription",
-            "associationKind": "subscription",
-            "associationSubKind": "subscription",
-            "associations": []
-          },
-          {
-            "reservations": [
-              {
-                "id": 16991,
-                "courtId": 69484,
-                "courtName": "old dirty court",
-                "clubId": 55035,
-                "clubName": "Club des Modzons",
-                "clubLongName": "Club des Modzons - Malibu",
-                "day": 20131111,
-                "start": 900,
-                "end": 1000,
-                "hour": "0900",
-                "slot": "20131111-900",
-                "slotStart": "09:00",
-                "slotEnd": "10:00",
-                "slotDay": "11.11.2013",
-                "player1Id": 79936,
-                "player1Name": "Alfred Muster",
-                "player1DetailedName": "Alfred Muster ( 1800)",
-                "player2Id": 79937,
-                "player2Name": "Bob Scampioni",
-                "player2DetailedName": "Bob Scampioni ( 1800)",
-                "modifierId": 79937,
-                "modifier": "Bob Scampioni",
-                "updatedAt": "11/7/2013 9:47:19 AM",
-                "associationId": 161670,
-                "price": "0EUR"
-              },
-              {
-                "id": 16992,
-                "courtId": 69484,
-                "courtName": "old dirty court",
-                "clubId": 55035,
-                "clubName": "Club des Modzons",
-                "clubLongName": "Club des Modzons - Malibu",
-                "day": 20131111,
-                "start": 900,
-                "end": 1000,
-                "hour": "0900",
-                "slot": "20131111-900",
-                "slotStart": "09:00",
-                "slotEnd": "10:00",
-                "slotDay": "11.11.2013",
-                "modifierId": 79937,
-                "modifier": "Bob Scampioni",
-                "updatedAt": "11/7/2013 9:47:19 AM",
-                "associationId": 161670,
-                "price": "0EUR"
-              }
-            ],
-            "slot": "0900",
-            "price": 0.0,
-            "start": 900,
-            "end": 1000,
-            "associationId": 161670,
-            "associationName": "subscription",
-            "associationKind": "subscription",
-            "associationSubKind": "subscription",
-            "associations": []
-          },
-          {
-            "reservations": [],
-            "slot": "1000",
-            "price": 0.0,
-            "start": 1000,
-            "end": 1100,
-            "associationId": 161670,
-            "associationName": "subscription",
-            "associationKind": "subscription",
-            "associationSubKind": "subscription",
-            "associations": []
-          }
-        ]
-      }
-    ]
+  "userId": 84546,
+  "slots": [
+    {
+      "courtId": 74285,
+      "courtName": "court1",
+      "courtGroupId": 66662,
+      "courtGroupName": "group1",
+      "slots": [
+        {
+          "reservations": [],
+          "slot": "0700",
+          "price": -1,
+          "start": 700,
+          "end": 800,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "0800",
+          "price": -1,
+          "start": 800,
+          "end": 900,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "0900",
+          "price": -1,
+          "start": 900,
+          "end": 1000,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "1000",
+          "price": 6.0,
+          "start": 1000,
+          "end": 1100,
+          "associationId": 172717,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "1100",
+          "price": 6.0,
+          "start": 1100,
+          "end": 1200,
+          "associationId": 172717,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "1200",
+          "price": 7.5,
+          "start": 1200,
+          "end": 1300,
+          "associationId": 172717,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "1300",
+          "price": -1,
+          "start": 1300,
+          "end": 1400,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "1400",
+          "price": -1,
+          "start": 1400,
+          "end": 1500,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "1500",
+          "price": -1,
+          "start": 1500,
+          "end": 1600,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "1600",
+          "price": -1,
+          "start": 1600,
+          "end": 1700,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "1700",
+          "price": -1,
+          "start": 1700,
+          "end": 1800,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "1800",
+          "price": -1,
+          "start": 1800,
+          "end": 1900,
+          "subscriptionTemplates": []
+        }
+      ]
+    },
+    {
+      "courtId": 74286,
+      "courtName": "court2",
+      "courtGroupId": 66662,
+      "courtGroupName": "group1",
+      "slots": [
+        {
+          "reservations": [],
+          "slot": "0700",
+          "price": -1,
+          "start": 700,
+          "end": 800,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "0800",
+          "price": -1,
+          "start": 800,
+          "end": 900,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "0900",
+          "price": -1,
+          "start": 900,
+          "end": 1000,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "1000",
+          "price": 6.0,
+          "start": 1000,
+          "end": 1100,
+          "associationId": 172717,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "1100",
+          "price": 6.0,
+          "start": 1100,
+          "end": 1200,
+          "associationId": 172717,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "1200",
+          "price": 7.5,
+          "start": 1200,
+          "end": 1300,
+          "associationId": 172717,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "1300",
+          "price": -1,
+          "start": 1300,
+          "end": 1400,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "1400",
+          "price": -1,
+          "start": 1400,
+          "end": 1500,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "1500",
+          "price": -1,
+          "start": 1500,
+          "end": 1600,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "1600",
+          "price": -1,
+          "start": 1600,
+          "end": 1700,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "1700",
+          "price": -1,
+          "start": 1700,
+          "end": 1800,
+          "subscriptionTemplates": []
+        },
+        {
+          "reservations": [],
+          "slot": "1800",
+          "price": -1,
+          "start": 1800,
+          "end": 1900,
+          "subscriptionTemplates": []
+        }
+      ]
+    }
+  ],
+  "associations": {
+    "templates": [
+      172717
+    ],
+    "172717": {
+      "id": 172717,
+      "userId": null,
+      "clubId": 58247,
+      "status": "active",
+      "description": null,
+      "kind": "tariff",
+      "name": "tariff0",
+      "rank": 0,
+      "subKind": "tariff",
+      "dataBag": {
+        "schedule": "1d-7d10-12=6.0;1d-7d12-13=7.5",
+        "nonMembers": true
+      },
+      "createdAt": "2013-11-22T04:47:26.617Z",
+      "updatedAt": "2013-11-22T04:47:31.987Z",
+      "price": null
+    }
   }
 }
+
+
 {% endhighlight %}
 
 See also [#clubs](#clubs).
@@ -374,7 +508,7 @@ See also [#clubs](#clubs) and [#subscribe](#subscribe).
 Returns a dictionary (JSON object) mapping association ids to association JSON representations.
 There is a special entry (key is "templates") that lists those association ids that point to template association (the list of subscriptions the current user can acquire in this club).
 
-This call is used in conjunction with [#slots](#slots) when more info about associations is required (display to the user probably).
+Note that this call returns only associations that are "active". Whereas the [#slots](#slots) call returns all the active associations between a club and the user plus "consumed" associations referred to by the reservations in the slots.
 
 Typical answer (minus links):
 
