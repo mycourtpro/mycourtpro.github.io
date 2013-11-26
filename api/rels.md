@@ -20,6 +20,7 @@ Here is a list of the rels supported by the MyCourt API. Click to jump to detail
 * [#bookmark-add](#bookmark-add) (POST)
 * [#bookmark-remove](#bookmark-remove) (DELETE)
 * [#slots](#slots)
+* [#payments](#payments)
 * [#payment-add](#payment-add) (POST)
 * [#membership-request](#membership-request) (POST)
 * [#associations](#associations)
@@ -450,6 +451,44 @@ Here is a sample response (only one court though, and links edited out for brevi
 {% endhighlight %}
 
 See also [#clubs](#clubs).
+
+---
+
+<h2 id="payments">GET #payments</h2>
+
+{% highlight javascript %}
+"http://mycourtpro.github.io/api/rels.html#payments": {
+  "href": "https://staging.mycourt.pro/api/payments/{clubId}"
+}
+{% endhighlight %}
+
+Returns a list of registered payment means for the current user. If a listed payment is currently registered (in the membership) as the preferred payment mean for the club, then its "clubPayment" is set to true.
+
+This information is useful right before purchasing a subscription or reserving a slot available via a tariff (to determine if registering a credit card or choosing among the registered credit cards is necessary).
+
+MyCourt doesn't store credit card information. It relies on its provider (Paymill) to do this.
+
+Sample answer (minus links):
+
+{% highlight javascript %}
+{
+  "version": "1.0",
+  "userId": 85393,
+  "_embedded": {
+    "payments": [
+      {
+        "provider": "paymill",
+        "paymentId": "pay_4b0dd30023ee1cc70d76960c",
+        "nick": "visa 05/19",
+        "createdAt": 20130101,
+        "clubPayment": true
+      }
+    ]
+  }
+}
+{% endhighlight %}
+
+See also [#payment-add](#payment-add).
 
 ---
 
