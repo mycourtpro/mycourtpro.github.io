@@ -500,8 +500,10 @@ See also [#payment-add](#payment-add).
   "method": "POST",
   "fields": [
     { "name": "clubId", "required": true },
-    { "name": "token", "required": true },
-    { "name": "nick", "required": true }
+    { "name": "paymentId" },
+    { "name": "token" },
+    { "name": "nick" }
+      // expects paymentId or token+nick
   ]
 }
 {% endhighlight %}
@@ -509,6 +511,8 @@ See also [#payment-add](#payment-add).
 Adds a payment token for the current user in the given club. ```nick``` is a string like "my visa card" or "amex gold spare".
 
 The ```token``` is a [Paymill](http://paymill.com) token (obtained via the Paymill bridge).
+
+It's OK to re-add a payment (obtained via [#payments](#payments)) by passing its ```paymentId```. It's useful when using a paymentId from a club to another.
 
 See also [#clubs](#clubs) and [#subscribe](#subscribe).
 
