@@ -112,7 +112,8 @@ See also [#clubs](#clubs) and [#reserve](#reserve).
     { "name": "start", "required": true },
     { "name": "end", "required": true },
     { "name": "player1Id" },
-    { "name": "player2Id" }
+    { "name": "player2Id" },
+    { "name": "paymentId" }
   ]
 }
 {% endhighlight %}
@@ -120,6 +121,8 @@ See also [#clubs](#clubs) and [#reserve](#reserve).
 Posts a reservation.
 
 Returns ```402 Payment Required``` if the slot requested is subject to a tariff and the user has not yet specified a credit card for this this (see [#payment-add](#payment-add)).
+
+When reserving a slot under a tariff and to avoid a ```402```, the easiest is probably to select a payment (see [#payments](#payments)) and then pass the chosen "paymentId" in the reservation data. A ```402``` could still get emitted if the paymentId is invalid or references and expired card.
 
 See also [#reservations](#reservations) and [#my-reservations](#my-reservations).
 
@@ -134,7 +137,8 @@ See also [#reservations](#reservations) and [#my-reservations](#my-reservations)
   "fields": [
     { "name": "clubId", "required": true },
     { "name": "subscriptionId", "required": true },
-    { "name": "userId" }
+    { "name": "userId" },
+    { "name": "paymentId" }
   ]
 }
 {% endhighlight %}
@@ -146,6 +150,8 @@ The ```userId``` defaults to the current user's id.
 The owner of a club may use this method (thanks to ```userId```) to attribute a subscription to a user.
 
 Returns ```402 Payment Required``` if the user is not an owner of the club and has not yet indicated which credit card to use (see [#payment-add](#payment-add)).
+
+To avoid a ```402```, the easiest is probably to select a payment (see [#payments](#payments)) and then pass the chosen "paymentId" in the reservation data. A ```402``` could still get emitted if the paymentId is invalid or references and expired card.
 
 See also [#clubs](#clubs).
 
