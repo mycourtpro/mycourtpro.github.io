@@ -206,12 +206,16 @@ The answer is structured in an object with two entries: "slots" and "association
 
 The associations are included in the answer because calling [#associations](#associations) will only return "active" associations. In the case of a "prepaid" subscription, it might become "consumed" and not by returned by #association, but the "associations" part of the #slots answer will contain it.
 
+"heldSlots" and "clubMaxSlots" are also included in the answer. It can be used to indicate to the user if he still can reserve.
+
 Here is a sample response (only one court though, and links edited out for brevity):
 
 {% highlight javascript %}
 {
   "version": "1.0",
   "userId": 84546,
+  "heldSlots": 0,
+  "clubMaxSlots": 1,
   "slots": [
     {
       "courtId": 74285,
@@ -452,8 +456,6 @@ Here is a sample response (only one court though, and links edited out for brevi
     }
   }
 }
-
-
 {% endhighlight %}
 
 See also [#clubs](#clubs).
