@@ -138,7 +138,10 @@ See also [#reservations](#reservations) and [#my-reservations](#my-reservations)
     { "name": "clubId", "required": true },
     { "name": "subscriptionId", "required": true },
     { "name": "userId" },
-    { "name": "paymentId" }
+    { "name": "paymentId" },
+    { "name": "txAccount" },
+    { "name": "txDate" },
+    { "name": "txPrice" }
   ]
 }
 {% endhighlight %}
@@ -152,6 +155,11 @@ The owner of a club may use this method (thanks to ```userId```) to attribute a 
 Returns ```402 Payment Required``` if the user is not an owner of the club and has not yet indicated which credit card to use (see [#payment-add](#payment-add)).
 
 To avoid a ```402```, the easiest is probably to select a payment (see [#payments](#payments)) and then pass the chosen "paymentId" in the reservation data. A ```402``` could still get emitted if the paymentId is invalid or references and expired card.
+
+The fields ```txAccount```, ```txDate``` and ```txPrice``` are only used when the owner of a club triggers the subscription. Those 3 fields are used when registering the transaction with the user getting subscribed, they hold the info that goes into the accounting.
+
+The account is a two-char string "CA" (cash), "BK" (bank account), "A1" (custom account 1), "A2" (custom 2), "A3" (custom 3).
+The date is an integer date (like 20011109) and the price is an integer (the currency is the one used by the club).
 
 See also [#clubs](#clubs).
 
