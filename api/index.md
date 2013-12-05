@@ -15,10 +15,12 @@ Interacting with MyCourt is mostly done by GETting JSON documents and POSTing JS
 
 Each HTTP request to MyCourt must be signed, thanks to a secret key shared between you and MyCourt.
 
+*Nota Bene*: you need a MyCourt account in order to use the MyCourt API. It's in our plans to provide signup via the API but it's not yet implemented.
+
 
 <h2 id="signing">Sign requests?</h2>
 
-The signature process is very similar to the one used by Amazon. You and MyCourt share a secret key and you use it to sign every request you make to MyCourt. Unsigned requests or requests with an invalid signature will be rejected.
+The signature process is very similar to the one used by Amazon. You and MyCourt share a secret key and you use it to sign _every request_ you make to MyCourt. Unsigned requests or requests with an invalid signature will be rejected.
 
 MyCourt expects you to add two headers to your HTTP requests: "x-mycourt-date" and "x-mycourt-authorization"
 
