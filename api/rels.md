@@ -560,7 +560,8 @@ See also [#clubs](#clubs) and [#subscribe](#subscribe).
 
 {% highlight javascript %}
 "http://mycourtpro.github.io/api/rels.html#associations": {
-  "href": "https://staging.mycourt.pro/api/club/{clubId}/associations"
+  "href": "https://staging.mycourt.pro/api/club/{clubId}/associations",
+  "templated": true
 }
 {% endhighlight %}
 
