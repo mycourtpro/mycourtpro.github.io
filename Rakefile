@@ -10,6 +10,9 @@ desc %{
   generate (continually) and serve the Jekyll site on port 4000
 }
 task :serve do
+  puts
+  puts '  http://localhost:4000/'
+  puts
   sh('bundle exec jekyll serve --watch')
 end
 
