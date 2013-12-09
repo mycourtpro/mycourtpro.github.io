@@ -24,6 +24,7 @@ Here is a list of the rels supported by the MyCourt API. Click to jump to detail
 * [#payment-add](#payment-add) (POST)
 * [#membership-request](#membership-request) (POST)
 * [#associations](#associations)
+* [#my-associations](#my-associations)
 * [#translations](#translations)
 
 <!---
@@ -557,6 +558,7 @@ Returns 409 Conflict if there is already an existing membership (active, request
 Specifying ```clubId``` and ```userId``` lets the owner of a club accept a membership request via the MyCourt API. (Not yet implemented).
 
 See also [#clubs](#clubs) and [#subscribe](#subscribe).
+
 ---
 
 <h2 id="associations">GET #associations</h2>
@@ -614,6 +616,52 @@ Typical answer (minus links):
 {% endhighlight %}
 
 See also [#slots](#slots).
+
+---
+
+<h2 id="my-associations">GET #my-associations</h2>
+
+{% highlight javascript %}
+"http://mycourtpro.github.io/api/rels.html#my-associations": {
+  "href": "https://staging.mycourt.pro/api/associations{?all}",
+  "templated": true
+}
+{% endhighlight %}
+
+Whereas #associations lists the associations between a club and a user (plus the club association templates), #my-associations lists the associations belonging to the user, whatever the club.
+
+If the query string parameter ```all``` is set to "true", like in ```https://staging.mycourt.pro/api/associations?all=true``` all the associations of the user, even the non-active ones will be returned.
+
+Here is what a typical answer might look like (minus the "_links"):
+
+{% highlight javascript %}
+{
+  "version": "1.0",
+  "userId": 88720,
+  "_embedded": {
+    "associations": [
+      {
+        "id": 183048,
+        "userId": 88720,
+        "clubId": 61053,
+        "status": "active",
+        "description": null,
+        "details": {},
+        "kind": "membership",
+        "name": "member",
+        "rank": 0,
+        "subKind": "membership",
+        "dataBag": {},
+        "createdAt": "2013-12-09T08:24:44.007Z",
+        "updatedAt": "2013-12-09T08:24:44.013Z",
+        "price": null
+      }
+    ]
+  }
+}
+{% endhighlight %}
+
+See also [#associations](#associations) and [#slots](#slots).
 
 ---
 
