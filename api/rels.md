@@ -216,6 +216,8 @@ The associations are included in the answer because calling [#associations](#ass
 
 "heldSlots" and "clubMaxSlots" are also included in the answer. It can be used to indicate to the user if he still can reserve.
 
+"balances" indicates if MyCourt owes money to the user. This can happen after unbooking a paying reservation (a reservation made on a court governed by a tariff). Note that MyCourt doesn't reimburse those amounts, they'll get debitted the next time the user reserves a court under a tariff or purchases a subscription, a prepaid or a preserved set.
+
 Here is a sample response (only one court though, and links edited out for brevity):
 
 {% highlight javascript %}
@@ -224,6 +226,7 @@ Here is a sample response (only one court though, and links edited out for brevi
   "userId": 84546,
   "heldSlots": 0,
   "clubMaxSlots": 1,
+  "balances": [ [ 7, EUR ], [ 0, GBP ] ],
   "slots": [
     {
       "courtId": 74285,
