@@ -630,7 +630,7 @@ See also [#slots](#slots).
 
 Whereas #associations lists the associations between a club and a user (plus the club association templates), #my-associations lists the associations belonging to the user, whatever the club.
 
-If the query string parameter ```all``` is set to "true", like in ```https://staging.mycourt.pro/api/associations?all=true``` all the associations of the user, even the non-active ones will be returned.
+If the query string parameter ```all``` is set to "true", like in ```https://staging.mycourt.pro/api/associations?all=true``` all the associations of the user, even the non-active ones, will be returned.
 
 Here is what a typical answer might look like (minus the "_links"):
 
