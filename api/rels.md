@@ -142,7 +142,9 @@ See also [#reservations](#reservations) and [#my-reservations](#my-reservations)
     { "name": "paymentId" },
     { "name": "txAccount" },
     { "name": "txDate" },
-    { "name": "txPrice" }
+    { "name": "txPrice" },
+    { "name": "courtId", "comment": "required when purchasing a 'prereserved'" },
+    { "name": "pReservations", "comment": "required when purchasing a 'prereserved'" }
   ]
 }
 {% endhighlight %}
