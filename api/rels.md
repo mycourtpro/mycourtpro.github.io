@@ -26,6 +26,7 @@ Here is a list of the rels supported by the MyCourt API. Click to jump to detail
 * [#associations](#associations)
 * [#my-associations](#my-associations)
 * [#translations](#translations)
+* [#prereservations](#prereservations)
 
 <!---
 * [#auth](#auth)
@@ -706,6 +707,78 @@ This is what the typical answer (minus links) looks like:
       {
         "id": 5, "name": "Basque pelota", "key": "basque_pelota",
         "de": ".sports.basque_pelota", "en": "basque pelota", "fr": "pelote basque"
+      }
+    ]
+  }
+}
+{% endhighlight %}
+
+---
+
+<h2 id="prereservations">GET #prereservations</h2>
+
+{% highlight javascript %}
+"http://mycourtpro.github.io/api/rels.html#prereservations": {
+  "href": "http://localhost:57800/api/prereservations/{prereservedId}/{courtId}/{extent}/{startDay}/{slot}",
+  "templated": true
+}
+{% endhighlight %}
+
+Given the id of a prereserved subscription (not yet purchased), a courtId, a startDay (integer, like 20131224) and a slot (integer, like 1200 for noon) and an extent ("court", "group" or "sport"), returns a "solution", a list of possible reservations.
+
+Here is a sample output for a prereserved that provides 4 reservations with a weekly frequency. The "extent" in the result is "court" for the 4 potential reservations. It means the court is free for all the occurences. If the extent is "court", it means the system is proposing another court in the same court group. If the extent is "sport", the proposal is not in the same group (of course it's same sport and not in another club...)
+
+When a single free is false, it means the proposal is not usable. A client implementation should generally query with an extent starting at "court", then "group" and finally, at "sport". If the sport, final proposal, yields a single free: false, then that prereserved is not possible.
+
+{% highlight javascript %}
+{
+  "version": "1.0",
+  "userId": 90868,
+  "_embedded": {
+    "reservations": [
+      {
+        "day": 20131216,
+        "slot": 1100,
+        "start": 1100,
+        "end": 1200,
+        "free": true,
+        "courtId": 80659,
+        "courtName": "court1",
+        "courtGroupId": 71741,
+        "extent": "court"
+      },
+      {
+        "day": 20131223,
+        "slot": 1100,
+        "start": 1100,
+        "end": 1200,
+        "free": true,
+        "courtId": 80659,
+        "courtName": "court1",
+        "courtGroupId": 71741,
+        "extent": "court"
+      },
+      {
+        "day": 20131230,
+        "slot": 1100,
+        "start": 1100,
+        "end": 1200,
+        "free": true,
+        "courtId": 80659,
+        "courtName": "court1",
+        "courtGroupId": 71741,
+        "extent": "court"
+      },
+      {
+        "day": 20140106,
+        "slot": 1100,
+        "start": 1100,
+        "end": 1200,
+        "free": true,
+        "courtId": 80660,
+        "courtName": "court2",
+        "courtGroupId": 71742,
+        "extent": "sport"
       }
     ]
   }
