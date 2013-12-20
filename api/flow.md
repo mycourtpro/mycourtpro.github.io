@@ -134,6 +134,7 @@ Here is a refresher on the codes the MyCourt API may return:
 * [402 Payment Required](#402-payment-required)
 * [403 Forbidden](#403-forbidden)
 * [404 Not Found](#404-not-found)
+* [409 Conflict](#409-conflict)
 * [500 Internal Server Error](#500-internal-server-error)
 
 
@@ -182,6 +183,12 @@ The user hasn't enough rights for his request to be completed.
 "The server has not found anything matching the Request-URI. No indication is given of whether the condition is temporary or permanent."
 
 Shouldn't happen often as the user (agent) mostly follows links, unless the link is "templated" and the query string parameters are wrong (unknown clubId, etc).
+
+<h3 id="409-conflict">409 Conflict</h3>
+
+MyCourt uses this status when replying to a POST that assumed a certain state when emitted and that state has changed meanwhile.
+
+For example, MyCourt will answer 409 when purchasing a prereserved subscription with a list of reservations to make and at least one of those reservations cannot be realized. The purchase and the reservations do not occur and MyCourt expects the client to issue an actualized request.
 
 <h3 id="500-internal-server-error">500 Internal Server Error</h3>
 
