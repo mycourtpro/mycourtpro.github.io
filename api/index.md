@@ -15,6 +15,8 @@ Interacting with MyCourt is mostly done by GETting JSON documents and POSTing JS
 
 Each HTTP request to MyCourt must be signed, thanks to a secret key shared between you and MyCourt.
 
+If you encounter problems with the MyCourt API, feel free to [fill an issue](https://github.com/mycourtpro/mycourtpro.github.io/issues). However, remember this rule of thumb: if the MyCourt API answers with a 400 range status code, the error is most probably on your side (so check what you send to MyCourt). If the error is a 500 one, then the error is on our side and we'd be grateful for a [detailed issue report](http://www.chiark.greenend.org.uk/~sgtatham/bugs.html).
+
 *Nota Bene*: you need a MyCourt account in order to use the MyCourt API. It's in our plans to provide signup via the API but it's not yet implemented.
 
 
