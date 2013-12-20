@@ -167,6 +167,8 @@ The fields ```txAccount```, ```txDate``` and ```txPrice``` are only used when th
 The account is a two-char string "CA" (cash), "BK" (bank account), "A1" (custom account 1), "A2" (custom 2), "A3" (custom 3).
 The date is an integer date (like 20011109) and the price is an integer (the currency is the one used by the club).
 
+When purchasing a "prereserved" subscription, the fields "courtId" and "pReservations" are required. CourtId should simply hold the (integer) id for the targetted court, while pReservations is in the same format as returned by [#prereservations](#prereservations) (list of tentative reservation objects). If the pReservations list cannot be respected (someone reserved one of the targetted slots meanwhile), MyCourt API will respond with 409 (conflict) and expect you to prepare a new pReservations list (thanks to [#prereservations](#prereservations)) and submit again. (Note that, potentially, a "sorry, no solution" answer can be given by #prereservations, you'll then have to target another set of slots).
+
 See also [#clubs](#clubs).
 
 ---
