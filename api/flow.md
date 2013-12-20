@@ -137,6 +137,11 @@ Here is a refresher on the codes the MyCourt API may return:
 * [409 Conflict](#409-conflict)
 * [500 Internal Server Error](#500-internal-server-error)
 
+Rule of Thumb:
+* 2xx: all is fine
+* 4xx: bad request, missing / invalid info passed to MyCourt
+* 5xx: something wrong on MyCourt side (feel free to [fill an issue](https://github.com/mycourtpro/mycourtpro.github.io/issues) if there isn't already one filled).
+
 
 <h3 id="200-ok">200 OK</h3>
 
