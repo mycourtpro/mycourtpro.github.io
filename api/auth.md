@@ -11,10 +11,13 @@ The signature is the result of a function that takes as input the request itself
 
 The secret key is shared between the client application that uses the API and the MyCourt system.
 
-The first step is to [obtain a secret key](#secret). Once this is done, keep that secret secret and [sign each request](#signing) with it.
+The first step is to obtain a secret key. Once this is done, keep that secret secret and [sign each request](#signing) with it.
 
+A secret key is coupled to a MyCourt account, that means there are two cases: [the account already exists](#authenticate) or an account doesn't exist and has to be [created and registered](#register).
 
-<h2 id="secret">Obtaining a secret key</h2>
+<h2 id="authenticate">existing MyCourt account</h2>
+
+The customer already has a MyCourt account (else jump to [registering](#register)).
 
 There are 4 steps to obtain a key. Those steps are a dialog between the client and the MyCourt system. Here is a graphical depiction:
 
@@ -45,6 +48,9 @@ You'll get a JSON document looking like:
         { "name": "deviceName", "required": true },
         { "name": "salt", "required": true }
       ]
+    },
+    "http://mycourtpro.github.io/api/rels.html#register": {
+      // ...
     }
   }
 }
@@ -54,7 +60,9 @@ This isn't a [200](flow.html#code200), but a 401 "unauthorized". MyCourt will po
 
 As explained in [flow](flow.html), you're supposed to follow the ```#auth``` link. Here it's easy, it's the only link the MyCourt API communicated to you.
 
-<h3 id="announce">Announce yourself</h3>
+(The ```#register``` link is for when the user doesn't have an account and one has [to be created](#register))
+
+<h3 id="auth-announce">Announcing the user</h3>
 
 The auth link looks like:
 
@@ -126,6 +134,45 @@ As just said, once you have requested a secret key over HTTPS and receveid by em
 This confirmation is only a matter of sending an empty JSON document (yes, ```{}``` is sufficient) via a POST to the ```#auth_confirmation``` link. But, this request has to be signed (with the secret key).
 
 Keep that secret key safely in your device/client. The platform you're developing for probably has a way to store such credentials in a secure way.
+
+
+<h2 id="register">register new MyCourt account</h2>
+
+(If the user already holds a MyCourt account, follow the instructions in [authenticating](#authenticate))
+
+Like when [authenticating](#authenticate) an existing MyCourt account, there are 4 steps to obtain a key. Those are the same steps, except for the 2nd one (announcing). Instead of following the ```#auth``` link, the ```#register``` link has to be followed.
+
+<img class="shadowed" src="/images/register_steps.png" />
+
+<h3 id="register-announce">Announcing the new user</h3>
+
+When "announcing" an already existing MyCourt account, the client only has to pass the "userEmail", "deviceName" and a computed "salt". When announcing a new MyCourt account, the client has to pass those three pieces of information plus some more, here is what the ```#register``` link looks like:
+
+{% highlight javascript %}
+  "http://mycourtpro.github.io/api/rels.html#register": {
+    "href": "https://staging.mycourt.pro/api/register",
+    "method": "POST",
+    "fields": [
+
+      { "name": "userEmail", "required": true },
+      { "name": "deviceName", "required": true },
+      { "name": "salt", "required": true },
+
+      { "name": "firstName", "required": true },
+      { "name": "lastName", "required": true },
+      { "name": "birthDate", "required": true },
+      { "name": "gender", "required": true },
+      { "name": "dateFormat", "default": "dd.MM.yyyy" },
+      { "name": "lang", "default": "en" },
+
+      { "name": "password", "comment": "website password" }
+    ]
+  }
+{% endhighlight %}
+
+Post the requested information to ```#register```, the rest goes like when [the MyCourt account already exists](#authenticate).
+
+Please note that the ```password``` field is optional. If it's not set, the new account will first need a password reset request in order to be used on the "traditional" MyCourt web application.
 
 
 <h2 id="signing">Request signing</h2>

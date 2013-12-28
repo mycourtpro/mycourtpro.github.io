@@ -19,6 +19,13 @@ If you encounter problems with the MyCourt API, feel free to [fill an issue](htt
 
 *Nota Bene*: you need a MyCourt account in order to use the MyCourt API. It's in our plans to provide signup via the API but it's not yet implemented.
 
+<h3 id="definitions">a few definitions</h3>
+
+Before diving into the API description / explanation, here are a few definitions of some of the terms used:
+
+* _client_: the piece of software that talks to the MyCourt API over HTTPs.
+* _customer_ or _user_: the person using the client or a classical web browser to interact with MyCourt.
+
 
 <h2 id="signing">Sign requests?</h2>
 
