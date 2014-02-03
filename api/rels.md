@@ -24,6 +24,7 @@ Here is a list of the rels supported by the MyCourt API. Click to jump to detail
 * [#payment-add](#payment-add) (POST)
 * [#membership-request](#membership-request) (POST)
 * [#associations](#associations)
+* [#user-associations](#user-associations)
 * [#my-associations](#my-associations)
 * [#translations](#translations)
 * [#prereservations](#prereservations)
@@ -623,6 +624,21 @@ Typical answer (minus links):
 {% endhighlight %}
 
 See also [#slots](#slots).
+
+---
+
+<h2 id="user-associations">GET #user-associations</h2>
+
+{% highlight javascript %}
+"http://mycourtpro.github.io/api/rels.html#user-associations": {
+  "href": "https://staging.mycourt.pro/api/club/{clubId}/associations/{userId}",
+  "templated": true
+}
+{% endhighlight %}
+
+Like [#associations](#associations) but the userId can is specified explicitely. Useful when the current user is a club owner and he wants to list the subscriptions available to a member.
+
+See also [#associations](#associations) and [#my-associations](#my-associations).
 
 ---
 
