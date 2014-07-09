@@ -17,4 +17,5 @@ gem 'compass'
 gem 'jekyll', '1.2.1'
 gem 'RedCloth', '4.2.9'
 gem 'redcarpet',  '2.3.0'
+gem 'kramdown', '1.0.2'
 
