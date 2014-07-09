@@ -64,6 +64,9 @@ Lists clubs registered in MyCourt. Next step would be to bookmark it or to reque
 The ```query``` is a string. Clubs whose information (name, street, city, ...) begins with that string (case ignored) are returned.
 
 The ```country``` query parameter expects a two-char country code like "de", "ch" or "us". It limits the query to the given country.
+Giving the string "\*\*" (star star) makes the GET return results in any country.
+
+The ```count``` query parameter is optional, a positive integer is expected. It limits the number of clubs returned, it defaults to 7.
 
 See also [#my-clubs](#my-clubs) and [#bookmark-add](#bookmark-add).
 
