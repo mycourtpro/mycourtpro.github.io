@@ -259,6 +259,73 @@ require 'base64'
 
 ([complete Ruby example client source](https://github.com/mycourtpro/mycourtpro.github.io/tree/master/_code/ruby/mycourt_client.rb))
 
+<h3 id="signing_sample">signing sample data</h3>
+
+(can be used when unit testing your client signature mechanism)
+
+GET sample signature:
+
+{% highlight python %}
+# data:
+"""
+GET
+/api/clubs/106462/prices/20140815
+x-mycourt-date:Tue, 12 Aug 2014 11:03:39 GMT
+x-nada:just_for_showing_a_second_header
+
+
+"""
+
+# secret:
+"""
+$2a$14$th.AkDhi6OIRk1NBoiaQhuScgMvwehHsVVYb3pKy2B/PvaAFChYTO
+"""
+
+# signature:
+"""
+P2iTnabfMn3LLF74DAkqycFK4tgLSLiUbKneyJZZll4=
+"""
+
+# headers:
+"""
+x-mycourt-date: Tue, 12 Aug 2014 11:03:39 GMT
+x-nada: just_for_showing_a_second_header
+x-mycourt-authorization: MyCourt KeyId=9181,Algorithm=HMACSHA256,SignedHeaders=x-mycourt-date;x-nada,Signature=P2iTnabfMn3LLF74DAkqycFK4tgLSLiUbKneyJZZll4=
+"""
+{% endhighlight %}
+
+POST sample signature:
+
+{% highlight python %}
+# data:
+"""
+POST
+/api/bookmark
+x-mycourt-date:Tue, 12 Aug 2014 13:28:49 GMT
+x-nada:just_for_showing_a_second_header
+
+
+{"clubId":106463}
+"""
+
+# secret:
+"""
+$2a$14$JD0LM2UxcwKP69IyqOJBq.aZrafUtDQoP5X81w5i9jiDRmMMHk/hm
+"""
+
+# signature:
+"""
+KKXZgCzBtxLpLgOIN4KEkN+W3bjWkfgxWz8PGqIsQRY=
+"""
+
+# headers:
+"""
+x-mycourt-date: Tue, 12 Aug 2014 13:28:49 GMT
+x-nada: just_for_showing_a_second_header
+x-mycourt-authorization: MyCourt KeyId=9182,Algorithm=HMACSHA256,SignedHeaders=x-mycourt-date;x-nada,Signature=KKXZgCzBtxLpLgOIN4KEkN+W3bjWkfgxWz8PGqIsQRY=
+"""
+{% endhighlight %}
+
 
 <h2 id="conclusion">Conclusion</h2>
 
